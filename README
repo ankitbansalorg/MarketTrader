@@ -1,1 +1,5 @@
-This file will describe how to set up this project
+This file will describe how to set up this project:
+1. Intellij Project files are checked in. Open iml file directly in intellij idea
+2. Install mongo db on your system.
+3. Add Module dependencies for intellij. Since using maven, so run maven once to download the jars and after than you can use maven directory for resolving dependencies
+
