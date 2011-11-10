@@ -1,5 +1,6 @@
 package com.sa.mt.options.parser;
 
+import com.sa.mt.options.domain.DailyAverage;
 import org.junit.Test;
 import org.springframework.core.io.ClassPathResource;
 
@@ -11,10 +12,10 @@ import static org.junit.Assert.assertEquals;
 public class DailyAverageCsvParserTest {
 
     @Test
-    public void shouldParseDailyAverageCsvFile() throws IOException {
+    public void shouldRetrieveRowsFromCsv() throws IOException {
         DailyAverageCsvParser csvParser = new DailyAverageCsvParser();
         ClassPathResource resource = new ClassPathResource("SampleDailyAverage.csv");
-        List<String[]> dailyAverage = csvParser.parse(resource.getFile());
-        assertEquals(4, dailyAverage.size());
+        List<DailyAverage> dailyAverage = csvParser.parse(resource.getFile());
+        assertEquals(3, dailyAverage.size());
     }
 }
