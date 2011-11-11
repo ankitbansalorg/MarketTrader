@@ -3,12 +3,15 @@ package com.sa.mt.options.parser;
 import com.sa.mt.exception.ImproperFormatException;
 import com.sa.mt.options.domain.DailyAverage;
 import com.sa.mt.options.domain.DailyAverageType;
+import com.sa.mt.options.domain.InstrumentType;
 import org.junit.Test;
 import org.springframework.core.io.ClassPathResource;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
+import static com.sa.mt.options.domain.InstrumentType.OPTION;
 import static org.junit.Assert.assertEquals;
 
 public class DailyAverageCsvParserTest {
@@ -27,7 +30,8 @@ public class DailyAverageCsvParserTest {
         ClassPathResource resource = new ClassPathResource("SampleDailyAverage.csv");
         List<DailyAverage> dailyAverageList = csvParser.parse(resource.getFile());
         DailyAverage dailyAverage = dailyAverageList.get(0);
-        assertEquals(new DailyAverage("ZEEL", 340, DailyAverageType.PA), dailyAverage);
+        assertEquals(new DailyAverage("ZEEL", OPTION, 340, DailyAverageType.CALL, new Date(), new Date()), dailyAverage);
+        assertEquals(new DailyAverage("NIFTY", OPTION, 340, DailyAverageType.CALL, new Date(), new Date()), dailyAverage);
     }
 
     @Test(expected = ImproperFormatException.class)

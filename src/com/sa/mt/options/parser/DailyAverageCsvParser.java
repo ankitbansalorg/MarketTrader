@@ -4,13 +4,17 @@ import au.com.bytecode.opencsv.CSVReader;
 import com.sa.mt.exception.ImproperFormatException;
 import com.sa.mt.options.domain.DailyAverage;
 import com.sa.mt.options.domain.DailyAverageType;
+import com.sa.mt.options.domain.InstrumentType;
 
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
+
+import static com.sa.mt.options.domain.InstrumentType.OPTION;
 
 public class DailyAverageCsvParser {
 
@@ -22,7 +26,7 @@ public class DailyAverageCsvParser {
         for (int i = 1; i < rows.size(); i++) {
             String[] row = rows.get(i);
             if(isValidOptionData(row)){
-            dailyAverageList.add(new DailyAverage(row[1],Integer.valueOf(row[3]), DailyAverageType.PA));
+            dailyAverageList.add(new DailyAverage(row[1], OPTION, Integer.valueOf(row[3]), DailyAverageType.CALL, new Date(), new Date()));
             }
         }
         return dailyAverageList;
@@ -34,7 +38,7 @@ public class DailyAverageCsvParser {
     }
 
     private static boolean isValidOptionData(String[] row) {
-        return row[0].equals("OPTSTK");
+        return InstrumentType.identify(row[0]) == OPTION; 
     }
 
     private List<String[]> readFile(File dailyAverageCsv) {

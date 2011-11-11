@@ -1,16 +1,51 @@
 package com.sa.mt.options.domain;
 
+import java.util.Date;
+
 public class DailyAverage {
     private String symbol;
-    private int strikePrice;
+    private InstrumentType instrumentType;
+    private double strikePrice;
     private DailyAverageType type;
+    private double openPrice;
+    private double lowPrice;
+    private double highPrice;
+    private double closePrice;
+    private double settlePrice;
+    private long contractsTraded;
+    private double tradedAmount;
+    private long openInterest;
+    private long changeInOI;
+    private Date date;
+    private Date expiryDate;
 
-    public DailyAverage(String symbol, int strikePrice, DailyAverageType type) {
+
+    public DailyAverage(String symbol, InstrumentType instrumentType, double strikePrice, DailyAverageType type,
+                        double openPrice, double lowPrice, double highPrice,
+                        double closePrice, double settlePrice, long contractsTraded,
+                        double tradedAmount, long openInterest, long changeInOI, Date date,
+                        Date expiryDate) {
         this.symbol = symbol;
+        this.instrumentType = instrumentType;
         this.strikePrice = strikePrice;
         this.type = type;
+        this.openPrice = openPrice;
+        this.lowPrice = lowPrice;
+        this.highPrice = highPrice;
+        this.closePrice = closePrice;
+        this.settlePrice = settlePrice;
+        this.contractsTraded = contractsTraded;
+        this.tradedAmount = tradedAmount;
+        this.openInterest = openInterest;
+        this.changeInOI = changeInOI;
+        this.date = date;
+        this.expiryDate = expiryDate;
     }
 
+    public DailyAverage(String symbol, InstrumentType instrumentType, double strikePrice, DailyAverageType type,
+                        Date date, Date expiryDate) {
+        this(symbol, instrumentType, strikePrice, type, 0, 0, 0, 0, 0, 0, 0, 0, 0, date, expiryDate);
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -19,7 +54,10 @@ public class DailyAverage {
 
         DailyAverage that = (DailyAverage) o;
 
-        if (strikePrice != that.strikePrice) return false;
+        if (Double.compare(that.strikePrice, strikePrice) != 0) return false;
+        if (date != null ? !date.equals(that.date) : that.date != null) return false;
+        if (expiryDate != null ? !expiryDate.equals(that.expiryDate) : that.expiryDate != null) return false;
+        if (instrumentType != that.instrumentType) return false;
         if (symbol != null ? !symbol.equals(that.symbol) : that.symbol != null) return false;
         if (type != that.type) return false;
 
@@ -28,9 +66,15 @@ public class DailyAverage {
 
     @Override
     public int hashCode() {
-        int result = symbol != null ? symbol.hashCode() : 0;
-        result = 31 * result + strikePrice;
+        int result;
+        long temp;
+        result = symbol != null ? symbol.hashCode() : 0;
+        result = 31 * result + (instrumentType != null ? instrumentType.hashCode() : 0);
+        temp = strikePrice != +0.0d ? Double.doubleToLongBits(strikePrice) : 0L;
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
         result = 31 * result + (type != null ? type.hashCode() : 0);
+        result = 31 * result + (date != null ? date.hashCode() : 0);
+        result = 31 * result + (expiryDate != null ? expiryDate.hashCode() : 0);
         return result;
     }
 }
