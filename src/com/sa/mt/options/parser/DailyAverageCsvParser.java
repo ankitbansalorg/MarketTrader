@@ -5,6 +5,7 @@ import com.sa.mt.exception.ImproperFormatException;
 import com.sa.mt.options.domain.DailyAverage;
 import com.sa.mt.options.domain.DailyAverageType;
 import com.sa.mt.options.domain.InstrumentType;
+import com.sa.mt.utils.DateUtils;
 
 import java.io.File;
 import java.io.FileReader;
@@ -14,31 +15,46 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import static com.sa.mt.options.domain.DailyAverageType.CALL;
 import static com.sa.mt.options.domain.InstrumentType.OPTION;
+import static com.sa.mt.utils.DateUtils.getDate;
+import static java.lang.Double.parseDouble;
+import static java.lang.Long.parseLong;
 
 public class DailyAverageCsvParser {
 
+    public static final String[] HEADER = {"INSTRUMENT", "SYMBOL", "EXPIRY_DT", "STRIKE_PR", "OPTION_TYP", "OPEN", "HIGH", "LOW", "CLOSE", "SETTLE_PR", "CONTRACTS", "VAL_INLAKH", "OPEN_INT", "CHG_IN_OI", "TIMESTAMP", ""};
+
     public List<DailyAverage> parse(File dailyAverageCsv) {
         List<String[]> rows = readFile(dailyAverageCsv);
-        String[] header = rows.get(0);
-        if(!isValidHeader(header)) throw new ImproperFormatException("Not a Valid Header",header);
+        validate(rows);
         List<DailyAverage> dailyAverageList = new ArrayList<DailyAverage>();
         for (int i = 1; i < rows.size(); i++) {
-            String[] row = rows.get(i);
-            if(isValidOptionData(row)){
-            dailyAverageList.add(new DailyAverage(row[1], OPTION, Integer.valueOf(row[3]), DailyAverageType.CALL, new Date(), new Date()));
+            DailyAverage dailyAverage = transform(rows.get(i));
+            if (dailyAverage != null) {
+                dailyAverageList.add(dailyAverage);
             }
         }
         return dailyAverageList;
     }
 
-    private boolean isValidHeader(String[] header) {
-      String[] validHeader = {"INSTRUMENT","SYMBOL","EXPIRY_DT","STRIKE_PR","OPTION_TYP","OPEN","HIGH","LOW","CLOSE","SETTLE_PR","CONTRACTS","VAL_INLAKH","OPEN_INT","CHG_IN_OI","TIMESTAMP",""};
-      return Arrays.equals(header,validHeader);
+    private DailyAverage transform(String[] row) {
+        if (isValidOptionData(row)) {
+            return new DailyAverage(row[1], OPTION, parseDouble(row[3]), CALL, parseDouble(row[5]),
+                    parseDouble(row[6]), parseDouble(row[7]), parseDouble(row[8]),
+                    parseDouble(row[9]), parseLong(row[10]), parseDouble(row[11]), parseLong(row[12]),
+                    parseLong(row[13]),  getDate(row[14]), getDate(row[2]));
+        }
+        return null;
+    }
+
+    private void validate(List<String[]> rows) {
+        String[] header = rows.get(0);
+        if (!Arrays.equals(header, HEADER)) throw new ImproperFormatException("Not a Valid Header", header);
     }
 
     private static boolean isValidOptionData(String[] row) {
-        return InstrumentType.identify(row[0]) == OPTION; 
+        return InstrumentType.identify(row[0]) == OPTION;
     }
 
     private List<String[]> readFile(File dailyAverageCsv) {
@@ -51,4 +67,6 @@ public class DailyAverageCsvParser {
         }
 
     }
+
+    
 }

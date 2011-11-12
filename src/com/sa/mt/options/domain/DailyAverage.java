@@ -77,4 +77,25 @@ public class DailyAverage {
         result = 31 * result + (expiryDate != null ? expiryDate.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "DailyAverage{" +
+                "symbol='" + symbol + '\'' +
+                ", instrumentType=" + instrumentType +
+                ", strikePrice=" + strikePrice +
+                ", type=" + type +
+                ", openPrice=" + openPrice +
+                ", lowPrice=" + lowPrice +
+                ", highPrice=" + highPrice +
+                ", closePrice=" + closePrice +
+                ", settlePrice=" + settlePrice +
+                ", contractsTraded=" + contractsTraded +
+                ", tradedAmount=" + tradedAmount +
+                ", openInterest=" + openInterest +
+                ", changeInOI=" + changeInOI +
+                ", date=" + date +
+                ", expiryDate=" + expiryDate +
+                '}';
+    }
 }
