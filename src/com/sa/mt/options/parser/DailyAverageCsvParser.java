@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.List;
 
 import static com.sa.mt.options.domain.DailyAverageType.CALL;
+import static com.sa.mt.options.domain.DailyAverageType.identify;
 import static com.sa.mt.options.domain.InstrumentType.OPTION;
 import static com.sa.mt.utils.DateUtils.getDate;
 import static java.lang.Double.parseDouble;
@@ -40,7 +41,7 @@ public class DailyAverageCsvParser {
 
     private DailyAverage transform(String[] row) {
         if (isValidOptionData(row)) {
-            return new DailyAverage(row[1], OPTION, parseDouble(row[3]), CALL, parseDouble(row[5]),
+            return new DailyAverage(row[1], OPTION, parseDouble(row[3]), identify(row[4]), parseDouble(row[5]),
                     parseDouble(row[6]), parseDouble(row[7]), parseDouble(row[8]),
                     parseDouble(row[9]), parseLong(row[10]), parseDouble(row[11]), parseLong(row[12]),
                     parseLong(row[13]),  getDate(row[14]), getDate(row[2]));
