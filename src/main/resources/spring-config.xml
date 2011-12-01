@@ -12,12 +12,13 @@
 
 	<!-- Default bean name is 'mongo' -->
 	<mongo:mongo host="localhost" port="27017" />
+    <context:component-scan base-package="com.sa.mt.repository"/>
 
 	<bean id="mongoTemplate"
                  class="org.springframework.data.document.mongodb.MongoTemplate">
 		<constructor-arg ref="mongo" />
-		<constructor-arg name="databaseName" value="yourdb" />
-		<constructor-arg name="defaultCollectionName" value="yourCollection" />
+		<constructor-arg name="databaseName" value="mt" />
+		<constructor-arg name="defaultCollectionName" value="mt" />
 	</bean>
 
 	<!-- To translate any MongoExceptions thrown in @Repository annotated classes -->
