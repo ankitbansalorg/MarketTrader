@@ -12,7 +12,7 @@
 
 	<!-- Default bean name is 'mongo' -->
 	<mongo:mongo host="localhost" port="27017" />
-    <context:component-scan base-package="com.sa.mt.repository"/>
+    <context:component-scan base-package="com.sa.mt"/>
 
 	<bean id="mongoTemplate"
                  class="org.springframework.data.document.mongodb.MongoTemplate">
@@ -20,6 +20,14 @@
 		<constructor-arg name="databaseName" value="mt" />
 		<constructor-arg name="defaultCollectionName" value="mt" />
 	</bean>
+
+    <bean id="config" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:default.properties</value>
+            </list>
+        </property>
+    </bean>
 
 	<!-- To translate any MongoExceptions thrown in @Repository annotated classes -->
 	<context:annotation-config />
