@@ -11,10 +11,16 @@ import java.util.List;
 @Repository
 public class DailyAverageRepository {
 
+    public static final String DAILY_AVERAGES = "daily_averages";
+
     @Autowired
     private MongoTemplate mongoTemplate;
 
     public void save(List<DailyAverage> dailyAverages) {
-         mongoTemplate.insertList("daily_average", dailyAverages);
+         mongoTemplate.insertList(DAILY_AVERAGES, dailyAverages);
+    }
+
+    public List<DailyAverage> getAll() {
+        return mongoTemplate.getCollection(DAILY_AVERAGES, DailyAverage.class);
     }
 }

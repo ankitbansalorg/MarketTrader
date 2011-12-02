@@ -42,6 +42,10 @@ public class DailyAverage {
         this.expiryDate = expiryDate;
     }
 
+    public DailyAverage() {
+
+    }
+
     public DailyAverage(String symbol, InstrumentType instrumentType, double strikePrice, DailyAverageType type,
                         Date date, Date expiryDate) {
         this(symbol, instrumentType, strikePrice, type, 0, 0, 0, 0, 0, 0, 0, 0, 0, date, expiryDate);
@@ -78,7 +82,68 @@ public class DailyAverage {
         return result;
     }
 
+    public String getSymbol() {
+        return symbol;
+    }
+
+    public InstrumentType getInstrumentType() {
+        return instrumentType;
+    }
+
+    public double getStrikePrice() {
+        return strikePrice;
+    }
+
+    public DailyAverageType getType() {
+        return type;
+    }
+
+    public double getOpenPrice() {
+        return openPrice;
+    }
+
+    public double getLowPrice() {
+        return lowPrice;
+    }
+
+    public double getHighPrice() {
+        return highPrice;
+    }
+
+    public double getClosePrice() {
+        return closePrice;
+    }
+
+    public double getSettlePrice() {
+        return settlePrice;
+    }
+
+    public long getContractsTraded() {
+        return contractsTraded;
+    }
+
+    public double getTradedAmount() {
+        return tradedAmount;
+    }
+
+    public long getOpenInterest() {
+        return openInterest;
+    }
+
+    public long getChangeInOI() {
+        return changeInOI;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public Date getExpiryDate() {
+        return expiryDate;
+    }
+
     @Override
+
     public String toString() {
         return "DailyAverage{" +
                 "symbol='" + symbol + '\'' +
