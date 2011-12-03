@@ -1,5 +1,6 @@
 package com.sa.mt.options.downloader;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -11,13 +12,20 @@ import java.net.URL;
 @Service
 public class DailyAverageCsvDownloader {
 
+    private  Content content;
+
+    @Autowired
+    public DailyAverageCsvDownloader(Content content) {
+          this.content = content;
+    }
+
     public void download(String downloadFrom, String downloadTo) {
         HttpURLConnection connection = connection(downloadFrom);
         try {
             int response = connection.getResponseCode();
             if (HttpURLConnection.HTTP_OK == response) {
                 InputStream inputStream = connection.getInputStream();
-               // return null;
+                content.saveTo(inputStream, downloadTo);
             } else {
                 throw new IllegalStateException("Could not establish a valid connection. Response Code: " + response);
             }

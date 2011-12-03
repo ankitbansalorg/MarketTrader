@@ -1,6 +1,7 @@
 package com.sa.mt.repository;
 
 import com.sa.mt.options.domain.DailyAverage;
+import com.sa.mt.options.repository.DailyAverageRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,7 +19,7 @@ import static com.sa.mt.options.domain.DailyAverageType.PUT;
 import static com.sa.mt.options.domain.InstrumentType.OPTION;
 import static com.sa.mt.utils.DateUtils.getDate;
 import static junit.framework.Assert.assertEquals;
-import static com.sa.mt.repository.DailyAverageRepository.DAILY_AVERAGES;
+import static com.sa.mt.options.repository.DailyAverageRepository.DAILY_AVERAGES;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"file:src/main/resources/spring-config.xml"})
@@ -26,7 +27,7 @@ import static com.sa.mt.repository.DailyAverageRepository.DAILY_AVERAGES;
 public class DailyAverageRepositoryTest {
 
     @Autowired
-    private  DailyAverageRepository repository;
+    private DailyAverageRepository repository;
 
     @Autowired
     private MongoTemplate mongoTemplate;

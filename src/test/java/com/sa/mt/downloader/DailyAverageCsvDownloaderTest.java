@@ -1,24 +1,30 @@
 package com.sa.mt.downloader;
 
+import com.sa.mt.options.downloader.Content;
 import com.sa.mt.options.downloader.DailyAverageCsvDownloader;
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.omg.SendingContext.RunTime;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
-import java.util.IllegalFormatException;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.verify;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"file:src/main/resources/spring-config.xml"})
-@TestExecutionListeners({DependencyInjectionTestExecutionListener.class})
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+
+import java.io.InputStream;
 public class DailyAverageCsvDownloaderTest {
 
-    @Autowired
+    @Mock
+    private Content content;
+
     private DailyAverageCsvDownloader downloader;
+
+    @Before
+    public void setUp() {
+        MockitoAnnotations.initMocks(this);
+        downloader = new DailyAverageCsvDownloader(content);
+    }
 
     @Test(expected = RuntimeException.class)
       public void shouldThrowExceptionWhenHostNotFound() {
@@ -37,7 +43,9 @@ public class DailyAverageCsvDownloaderTest {
       }
 
      @Test
-      public void shouldNotThrowExceptionForValidResponse() {
-         downloader.download("http://localhost/", null);
+      public void shouldDownloadAndSaveFile() {
+         String downloadTo = "test";
+         downloader.download("http://localhost/", downloadTo);
+         verify(content).saveTo(any(InputStream.class), eq(downloadTo));
       }
 }

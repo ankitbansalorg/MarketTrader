@@ -1,4 +1,4 @@
-package com.sa.mt.repository;
+package com.sa.mt.options.repository;
 
 import com.mongodb.Mongo;
 import com.sa.mt.options.domain.DailyAverage;

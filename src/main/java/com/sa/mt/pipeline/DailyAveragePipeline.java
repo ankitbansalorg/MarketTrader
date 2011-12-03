@@ -10,4 +10,6 @@ public class DailyAveragePipeline {
 
     @Value(value = "${daily.average.store.url}")
     private String storageUrl;
+
+
 }
