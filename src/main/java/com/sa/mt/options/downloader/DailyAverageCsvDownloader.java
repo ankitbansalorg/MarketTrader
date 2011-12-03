@@ -3,6 +3,7 @@ package com.sa.mt.options.downloader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import sun.net.idn.StringPrep;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,11 +22,13 @@ public class DailyAverageCsvDownloader {
 
     public void download(String downloadFrom, String downloadTo) {
         HttpURLConnection connection = connection(downloadFrom);
+        String[] filePath= downloadFrom.split("/");
+        String fileName = filePath[filePath.length - 1];
         try {
             int response = connection.getResponseCode();
             if (HttpURLConnection.HTTP_OK == response) {
                 InputStream inputStream = connection.getInputStream();
-                content.saveTo(inputStream, downloadTo);
+                content.saveTo(inputStream, downloadTo, fileName);
             } else {
                 throw new IllegalStateException("Could not establish a valid connection. Response Code: " + response);
             }

@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 public class DateUtils {
     private static final String DATEFORMAT = "dd-MMM-yyyy";
@@ -12,7 +13,10 @@ public class DateUtils {
 
         SimpleDateFormat dateFormat = new SimpleDateFormat(DATEFORMAT);
         try {
-            return dateFormat.parse(dateString);
+            Date parsedDate = dateFormat.parse(dateString);
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(parsedDate);
+            return cal.getTime();
         } catch (ParseException e) {
             throw new RuntimeException("Date String"+dateString+" is not in correct format: "+ DATEFORMAT, e);
         }

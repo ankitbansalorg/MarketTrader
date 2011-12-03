@@ -1,7 +1,6 @@
-package com.sa.mt.repository;
+package com.sa.mt.options.repository;
 
 import com.sa.mt.options.domain.DailyAverage;
-import com.sa.mt.options.repository.DailyAverageRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,6 +19,8 @@ import static com.sa.mt.options.domain.InstrumentType.OPTION;
 import static com.sa.mt.utils.DateUtils.getDate;
 import static junit.framework.Assert.assertEquals;
 import static com.sa.mt.options.repository.DailyAverageRepository.DAILY_AVERAGES;
+import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"file:src/main/resources/spring-config.xml"})
@@ -44,5 +45,13 @@ public class DailyAverageRepositoryTest {
          List<DailyAverage> dailyAverages = repository.getAll();
          assertEquals(1, dailyAverages.size());
          assertEquals(dailyAverage, dailyAverages.get(0));
+      }
+
+     @Test
+      public void shouldCheckWhetherDataExistsForGivenDate() {
+         DailyAverage dailyAverage = new DailyAverage("NIFTY", OPTION, 6450, PUT, getDate("2-JAN-2008"), getDate("27-MAR-2008"));
+         repository.save(Arrays.asList(dailyAverage));
+         assertTrue(repository.dataExistsForDate(getDate("2-JAN-2008")));
+         assertFalse(repository.dataExistsForDate(getDate("3-JAN-2008")));
       }
 }

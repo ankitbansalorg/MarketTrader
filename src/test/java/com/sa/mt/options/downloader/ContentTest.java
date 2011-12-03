@@ -1,6 +1,5 @@
-package com.sa.mt.downloader;
+package com.sa.mt.options.downloader;
 
-import com.sa.mt.options.downloader.Content;
 import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 import java.io.File;
@@ -13,14 +12,15 @@ public class ContentTest {
 
     @Test
     public void shouldSaveStreamToAFile() {
-        String file = new File(".") + File.separator + "HelloStreamSave.txt";
-        File testFile = new File(file);
+        String path = new File(".") + File.separator;
+        String fileName = "HelloStreamSave.txt";
+        File testFile = new File(path, fileName);
         assertFalse(testFile.exists());
         String text = "Hello world .. try saving it";
         InputStream stream = IOUtils.toInputStream(text);
         Content content = new Content();
         try {
-            File savedFile = content.saveTo(stream, file);
+            File savedFile = content.saveTo(stream, path, fileName);
             assertTrue(savedFile.exists());
             assertTrue(savedFile.length() == text.length());
         } finally {

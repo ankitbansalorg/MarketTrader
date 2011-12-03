@@ -1,11 +1,10 @@
-package com.sa.mt.downloader;
+package com.sa.mt.options.downloader;
 
-import com.sa.mt.options.downloader.Content;
-import com.sa.mt.options.downloader.DailyAverageCsvDownloader;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.verify;
 
@@ -46,6 +45,6 @@ public class DailyAverageCsvDownloaderTest {
       public void shouldDownloadAndSaveFile() {
          String downloadTo = "test";
          downloader.download("http://localhost/", downloadTo);
-         verify(content).saveTo(any(InputStream.class), eq(downloadTo));
+         verify(content).saveTo(any(InputStream.class), eq(downloadTo), anyString());
       }
 }
