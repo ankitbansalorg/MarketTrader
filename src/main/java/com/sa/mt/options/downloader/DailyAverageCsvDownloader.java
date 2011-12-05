@@ -23,6 +23,7 @@ public class DailyAverageCsvDownloader {
         HttpURLConnection connection = connection(downloadFrom);
         String[] filePath= downloadFrom.split("/");
         String fileName = filePath[filePath.length - 1];
+        System.out.println(downloadFrom);
         try {
             int response = connection.getResponseCode();
             if (HttpURLConnection.HTTP_OK == response) {
