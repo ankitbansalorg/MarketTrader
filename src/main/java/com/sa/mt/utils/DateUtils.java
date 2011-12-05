@@ -16,6 +16,7 @@ public class DateUtils {
             Date parsedDate = dateFormat.parse(dateString);
             Calendar cal = Calendar.getInstance();
             cal.setTime(parsedDate);
+            cal.setTimeZone(TimeZone.getDefault());
             return cal.getTime();
         } catch (ParseException e) {
             throw new RuntimeException("Date String"+dateString+" is not in correct format: "+ DATEFORMAT, e);

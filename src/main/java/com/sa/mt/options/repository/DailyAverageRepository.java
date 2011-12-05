@@ -1,20 +1,15 @@
 package com.sa.mt.options.repository;
 
-import com.mongodb.BasicDBObject;
-import com.mongodb.Mongo;
-import com.mongodb.QueryBuilder;
-import org.joda.time.DateTime;
-import com.sa.mt.options.domain.DailyAverage;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.document.mongodb.MongoTemplate;
-import org.springframework.data.document.mongodb.query.Criteria;
-import org.springframework.data.document.mongodb.query.Query;
-import org.springframework.stereotype.Repository;
-
 import java.util.Date;
 import java.util.List;
 
-import static org.springframework.data.document.mongodb.query.Criteria.where;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.document.mongodb.MongoTemplate;
+import org.springframework.stereotype.Repository;
+
+import com.mongodb.DBObject;
+import com.mongodb.QueryBuilder;
+import com.sa.mt.options.domain.DailyAverage;
 
 @Repository
 public class DailyAverageRepository {
@@ -33,14 +28,8 @@ public class DailyAverageRepository {
     }
 
     public boolean dataExistsForDate(Date date) {
-      //  BasicDBObject query = new BasicDBObject();
-     //   query.put("date", date);
-        QueryBuilder queryBuilder = new QueryBuilder();
-        queryBuilder.put("date").is(date);
-        System.out.println(queryBuilder.get());
-     //   DateTime dateTime = new DateTime(date);
-     //   Query query = new Query(Criteria.where("date").gt(dateTime.toDate()));
-     //   return mongoTemplate.find(query, DailyAverage.class).size() > 0;
-        return false;
+    	DBObject query  = new QueryBuilder().start().put("date").is(date).get();
+    	DBObject obj = mongoTemplate.getCollection(DAILY_AVERAGES).findOne(query);
+        return obj != null;
     }
 }
