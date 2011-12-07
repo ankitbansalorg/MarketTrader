@@ -1,17 +1,15 @@
-package com.sa.mt.pipeline;
+package com.sa.mt.options.pipeline;
 
 import com.sa.mt.options.domain.DailyAverage;
 import com.sa.mt.options.downloader.DailyAverageCsvDownloader;
 import com.sa.mt.options.loader.DailyAverageLoader;
 import com.sa.mt.options.parser.DailyAverageCsvParser;
-import com.sa.mt.options.repository.DailyAverageRepository;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
-import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.*;
 

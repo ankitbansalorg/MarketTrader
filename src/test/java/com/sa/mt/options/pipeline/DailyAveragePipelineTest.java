@@ -1,4 +1,4 @@
-package com.sa.mt.pipeline;
+package com.sa.mt.options.pipeline;
 
 import com.sa.mt.options.downloader.DailyAverageCsvDownloader;
 import org.junit.Before;
@@ -15,12 +15,11 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.verify;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"file:src/main/resources/spring-config.xml"})
+@ContextConfiguration(locations = {"file:src/test/resources/testContext.xml"})
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class})
 public class DailyAveragePipelineTest {
 
@@ -28,7 +27,7 @@ public class DailyAveragePipelineTest {
     private DailyAverageCsvDownloader dailyAverageCsvDownloader;
 
     @Autowired
-    private DailyAveragePipeline dailyAveragePipeline;
+    private com.sa.mt.options.pipeline.DailyAveragePipeline dailyAveragePipeline;
 
     @Before
     public void setUp() {
@@ -43,11 +42,6 @@ public class DailyAveragePipelineTest {
          String[] date = sdf.format(new Date()).split("-");
          String downloadPath = "http://www.nseindia.com/content/historical/DERIVATIVES/" + date[0] + "/" + date[1].toUpperCase()+
                  "/fo" + date[2] + date[1].toUpperCase() + date[0] + "bhav.csv.zip";
-         verify(dailyAverageCsvDownloader).download(eq(downloadPath), eq("/usr/htdocs/options/"));
-      }
-
-     @Test
-      public void shouldParseAllTheDailyAverageFilesPresentInTheStorageFolder() {
-
+         verify(dailyAverageCsvDownloader).download(eq(downloadPath), eq("/tmp/"));
       }
 }

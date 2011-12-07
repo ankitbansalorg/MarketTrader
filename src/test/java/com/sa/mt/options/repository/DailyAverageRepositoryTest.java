@@ -23,7 +23,7 @@ import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"file:src/main/resources/spring-config.xml"})
+@ContextConfiguration(locations = {"file:src/test/resources/testContext.xml"})
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class})
 public class DailyAverageRepositoryTest {
 

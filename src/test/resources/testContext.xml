@@ -10,36 +10,21 @@
           http://www.springframework.org/schema/beans
           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
-	<!-- Default bean name is 'mongo' -->
-	<mongo:mongo host="localhost" port="27017" />
-    <context:component-scan base-package="com.sa.mt"/>
+	<import resource="../../main/webapp/WEB-INF/baseContext.xml"/>
 
 	<bean id="mongoTemplate"
                  class="org.springframework.data.document.mongodb.MongoTemplate">
 		<constructor-arg ref="mongo" />
-		<constructor-arg name="databaseName" value="mt" />
-		<constructor-arg name="defaultCollectionName" value="mt" />
+		<constructor-arg name="databaseName" value="mt_test" />
+		<constructor-arg name="defaultCollectionName" value="mt_test" />
 	</bean>
 
     <bean id="config" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
-                <value>classpath:default.properties</value>
+                <value>classpath:test.properties</value>
             </list>
         </property>
     </bean>
-
-    <bean id="log4jInitialization" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
-        <property name="targetClass" value="org.springframework.util.Log4jConfigurer" />
-        <property name="targetMethod" value="initLogging" />
-        <property name="arguments">
-        <list>
-            <value>resources/log4j.properties</value>
-        </list>
-        </property>
-    </bean>
-
-	<!-- To translate any MongoExceptions thrown in @Repository annotated classes -->
-	<context:annotation-config />
 
 </beans>
