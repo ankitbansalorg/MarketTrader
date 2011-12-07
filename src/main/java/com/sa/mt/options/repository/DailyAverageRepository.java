@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.mongodb.DBObject;
 import com.mongodb.QueryBuilder;
-import com.sa.mt.options.domain.DailyAverage;
+import com.sa.mt.options.domain.Instrument;
 
 @Repository
 public class DailyAverageRepository {
@@ -19,12 +19,12 @@ public class DailyAverageRepository {
     @Autowired
     private MongoTemplate mongoTemplate;
 
-    public void save(List<DailyAverage> dailyAverages) {
+    public void save(List<Instrument> dailyAverages) {
         mongoTemplate.insertList(DAILY_AVERAGES, dailyAverages);
     }
 
-    public List<DailyAverage> getAll() {
-        return mongoTemplate.getCollection(DAILY_AVERAGES, DailyAverage.class);
+    public List<Instrument> getAll() {
+        return mongoTemplate.getCollection(DAILY_AVERAGES, Instrument.class);
     }
 
     public boolean dataExistsForDate(Date date) {

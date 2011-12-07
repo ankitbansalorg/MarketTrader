@@ -7,6 +7,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -23,7 +24,10 @@ import static org.mockito.Mockito.verify;
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class})
 public class DailyAveragePipelineTest {
 
-    @Mock
+	@Value(value = "${daily.average.store.url}")
+    private String storageUrl;
+	
+	@Mock
     private DailyAverageCsvDownloader dailyAverageCsvDownloader;
 
     @Autowired
@@ -42,6 +46,6 @@ public class DailyAveragePipelineTest {
          String[] date = sdf.format(new Date()).split("-");
          String downloadPath = "http://www.nseindia.com/content/historical/DERIVATIVES/" + date[0] + "/" + date[1].toUpperCase()+
                  "/fo" + date[2] + date[1].toUpperCase() + date[0] + "bhav.csv.zip";
-         verify(dailyAverageCsvDownloader).download(eq(downloadPath), eq("/tmp/"));
+         verify(dailyAverageCsvDownloader).download(eq(downloadPath), eq(storageUrl));
       }
 }

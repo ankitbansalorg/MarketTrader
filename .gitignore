@@ -1,4 +1,9 @@
 .DS_Store
+/src/test/resources/
 target/
 .idea
 out/
+bin
+.classpath
+.project
+.settings/

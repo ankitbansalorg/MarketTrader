@@ -1,7 +1,7 @@
 package com.sa.mt.options.parser;
 
 import com.sa.mt.exception.ImproperFormatException;
-import com.sa.mt.options.domain.DailyAverage;
+import com.sa.mt.options.domain.Instrument;
 import org.junit.Test;
 import org.springframework.core.io.ClassPathResource;
 
@@ -22,7 +22,7 @@ public class DailyAverageCsvParserTest {
     public void shouldRetrieveRowsFromCsv() throws IOException {
         DailyAverageCsvParser csvParser = new DailyAverageCsvParser();
         ClassPathResource resource = new ClassPathResource("SampleDailyAverage.csv");
-        List<DailyAverage> dailyAverage = csvParser.parse(resource.getFile());
+        List<Instrument> dailyAverage = csvParser.parse(resource.getFile());
         assertEquals(3, dailyAverage.size());
     }
 
@@ -30,11 +30,11 @@ public class DailyAverageCsvParserTest {
     public void shouldExtractDailyAverageDataFromCsv() throws IOException {
         DailyAverageCsvParser csvParser = new DailyAverageCsvParser();
         ClassPathResource resource = new ClassPathResource("SampleDailyAverage.csv");
-        List<DailyAverage> dailyAverageList = csvParser.parse(resource.getFile());
-        assertTrue(reflectionEquals(new DailyAverage("RPL", OPTION, 200, CALL, 31, 33.95, 31, 33.95, 33.95, 3, 11.69,
+        List<Instrument> dailyAverageList = csvParser.parse(resource.getFile());
+        assertTrue(reflectionEquals(new Instrument("RPL", OPTION, 200, CALL, 31, 33.95, 31, 33.95, 33.95, 3, 11.69,
                 51925, 0, getDate("2-JAN-2008"), getDate("31-JAN-2008")), dailyAverageList.get(0)));
-        assertEquals(new DailyAverage("NIFTY", OPTION, 6450, PUT, getDate("2-JAN-2008"), getDate("27-MAR-2008")), dailyAverageList.get(1));
-        assertEquals(new DailyAverage("ZEEL", OPTION, 350, PUT, getDate("2-JAN-2008"), getDate("27-MAR-2008")), dailyAverageList.get(2));
+        assertEquals(new Instrument("NIFTY", OPTION, 6450, PUT, getDate("2-JAN-2008"), getDate("27-MAR-2008")), dailyAverageList.get(1));
+        assertEquals(new Instrument("ZEEL", OPTION, 350, PUT, getDate("2-JAN-2008"), getDate("27-MAR-2008")), dailyAverageList.get(2));
     }
 
     @Test(expected = ImproperFormatException.class)

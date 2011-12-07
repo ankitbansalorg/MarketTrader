@@ -1,6 +1,6 @@
 package com.sa.mt.options.repository;
 
-import com.sa.mt.options.domain.DailyAverage;
+import com.sa.mt.options.domain.Instrument;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -40,16 +40,16 @@ public class DailyAverageRepositoryTest {
 
      @Test
       public void shouldStoreDailyAverages() {
-         DailyAverage dailyAverage = new DailyAverage("NIFTY", OPTION, 6450, PUT, getDate("2-JAN-2008"), getDate("27-MAR-2008"));
+         Instrument dailyAverage = new Instrument("NIFTY", OPTION, 6450, PUT, getDate("2-JAN-2008"), getDate("27-MAR-2008"));
          repository.save(Arrays.asList(dailyAverage));
-         List<DailyAverage> dailyAverages = repository.getAll();
+         List<Instrument> dailyAverages = repository.getAll();
          assertEquals(1, dailyAverages.size());
          assertEquals(dailyAverage, dailyAverages.get(0));
       }
 
      @Test
       public void shouldCheckWhetherDataExistsForGivenDate() {
-         DailyAverage dailyAverage = new DailyAverage("NIFTY", OPTION, 6450, PUT, getDate("2-JAN-2008"), getDate("27-MAR-2008"));
+         Instrument dailyAverage = new Instrument("NIFTY", OPTION, 6450, PUT, getDate("2-JAN-2008"), getDate("27-MAR-2008"));
          repository.save(Arrays.asList(dailyAverage));
          assertTrue(repository.dataExistsForDate(getDate("2-JAN-2008")));
          assertFalse(repository.dataExistsForDate(getDate("3-JAN-2008")));

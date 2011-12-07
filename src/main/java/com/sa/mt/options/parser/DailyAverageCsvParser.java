@@ -2,7 +2,7 @@ package com.sa.mt.options.parser;
 
 import au.com.bytecode.opencsv.CSVReader;
 import com.sa.mt.exception.ImproperFormatException;
-import com.sa.mt.options.domain.DailyAverage;
+import com.sa.mt.options.domain.Instrument;
 import com.sa.mt.options.domain.DailyAverageType;
 import com.sa.mt.options.domain.InstrumentType;
 import com.sa.mt.utils.DateUtils;
@@ -28,12 +28,12 @@ public class DailyAverageCsvParser {
 
     public static final String[] HEADER = {"INSTRUMENT", "SYMBOL", "EXPIRY_DT", "STRIKE_PR", "OPTION_TYP", "OPEN", "HIGH", "LOW", "CLOSE", "SETTLE_PR", "CONTRACTS", "VAL_INLAKH", "OPEN_INT", "CHG_IN_OI", "TIMESTAMP", ""};
 
-    public List<DailyAverage> parse(File dailyAverageCsv) {
+    public List<Instrument> parse(File dailyAverageCsv) {
         List<String[]> rows = readFile(dailyAverageCsv);
         validate(rows);
-        List<DailyAverage> dailyAverageList = new ArrayList<DailyAverage>();
+        List<Instrument> dailyAverageList = new ArrayList<Instrument>();
         for (int i = 1; i < rows.size(); i++) {
-            DailyAverage dailyAverage = transform(rows.get(i));
+            Instrument dailyAverage = transform(rows.get(i));
             if (dailyAverage != null) {
                 dailyAverageList.add(dailyAverage);
             }
@@ -41,9 +41,9 @@ public class DailyAverageCsvParser {
         return dailyAverageList;
     }
 
-    private DailyAverage transform(String[] row) {
+    private Instrument transform(String[] row) {
         if (isValidOptionData(row)) {
-            return new DailyAverage(row[1], OPTION, parseDouble(row[3]), identify(row[4]), parseDouble(row[5]),
+            return new Instrument(row[1], OPTION, parseDouble(row[3]), identify(row[4]), parseDouble(row[5]),
                     parseDouble(row[6]), parseDouble(row[7]), parseDouble(row[8]),
                     parseDouble(row[9]), parseLong(row[10]), parseDouble(row[11]), parseLong(row[12]),
                     parseLong(row[13]),  getDate(row[14]), getDate(row[2]));

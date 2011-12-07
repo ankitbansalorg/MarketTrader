@@ -1,6 +1,6 @@
 package com.sa.mt.options.pipeline;
 
-import com.sa.mt.options.domain.DailyAverage;
+import com.sa.mt.options.domain.Instrument;
 import com.sa.mt.options.downloader.DailyAverageCsvDownloader;
 import com.sa.mt.options.loader.DailyAverageLoader;
 import com.sa.mt.options.parser.DailyAverageCsvParser;
@@ -58,7 +58,7 @@ public class DailyAveragePipeline {
     }
 
     private void storeFileData(File file) {
-        List<DailyAverage> dailyAverages =  dailyAverageCsvParser.parse(file);
+        List<Instrument> dailyAverages =  dailyAverageCsvParser.parse(file);
         dailyAverageLoader.loadData(dailyAverages);
     }
 

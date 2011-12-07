@@ -1,6 +1,7 @@
 package com.sa.mt.options.downloader;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.mockito.Matchers.any;
@@ -41,7 +42,7 @@ public class DailyAverageCsvDownloaderTest {
          downloader.download("http://www.google.com/{sfdsd}", null);
       }
 
-     @Test
+     @Test 
       public void shouldDownloadAndSaveFile() {
          String downloadTo = "test";
          downloader.download("http://localhost/", downloadTo);

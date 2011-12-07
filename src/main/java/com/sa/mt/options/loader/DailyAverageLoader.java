@@ -1,6 +1,6 @@
 package com.sa.mt.options.loader;
 
-import com.sa.mt.options.domain.DailyAverage;
+import com.sa.mt.options.domain.Instrument;
 import com.sa.mt.options.repository.DailyAverageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +18,7 @@ public class DailyAverageLoader {
         this.dailyAverageRepository = dailyAverageRepository;
     }
 
-    public void loadData(List<DailyAverage> dailyAverages) {
+    public void loadData(List<Instrument> dailyAverages) {
         if(dailyAverages.size() > 0) {
             Date date = dailyAverages.get(0).getDate();
             if(!dailyAverageRepository.dataExistsForDate(date)) {

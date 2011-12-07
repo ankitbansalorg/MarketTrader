@@ -2,7 +2,7 @@ package com.sa.mt.options.domain;
 
 import java.util.Date;
 
-public class DailyAverage {
+public class Instrument {
     private String symbol;
     private InstrumentType instrumentType;
     private double strikePrice;
@@ -20,7 +20,7 @@ public class DailyAverage {
     private Date expiryDate;
 
 
-    public DailyAverage(String symbol, InstrumentType instrumentType, double strikePrice, DailyAverageType type,
+    public Instrument(String symbol, InstrumentType instrumentType, double strikePrice, DailyAverageType type,
                         double openPrice, double lowPrice, double highPrice,
                         double closePrice, double settlePrice, long contractsTraded,
                         double tradedAmount, long openInterest, long changeInOI, Date date,
@@ -42,11 +42,11 @@ public class DailyAverage {
         this.expiryDate = expiryDate;
     }
 
-    public DailyAverage() {
+    public Instrument() {
 
     }
 
-    public DailyAverage(String symbol, InstrumentType instrumentType, double strikePrice, DailyAverageType type,
+    public Instrument(String symbol, InstrumentType instrumentType, double strikePrice, DailyAverageType type,
                         Date date, Date expiryDate) {
         this(symbol, instrumentType, strikePrice, type, 0, 0, 0, 0, 0, 0, 0, 0, 0, date, expiryDate);
     }
@@ -56,7 +56,7 @@ public class DailyAverage {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        DailyAverage that = (DailyAverage) o;
+        Instrument that = (Instrument) o;
 
         if (Double.compare(that.strikePrice, strikePrice) != 0) return false;
         if (date != null ? !date.equals(that.date) : that.date != null) return false;
