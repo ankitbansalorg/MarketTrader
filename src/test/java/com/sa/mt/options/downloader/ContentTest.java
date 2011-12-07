@@ -26,6 +26,10 @@ public class ContentTest {
         } finally {
             if (testFile.exists()) {
                 testFile.delete();
+                File csvFile = new File(testFile.getAbsolutePath().substring(0, testFile.getAbsolutePath().length() - 4));
+                if(csvFile.exists()) {
+                    csvFile.delete();
+                }
             }
         }
 
