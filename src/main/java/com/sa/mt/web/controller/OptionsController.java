@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class OptionsController {
      private InstrumentRepository instrumentRepository;
+    private static final String OPTION_VIEW = "/hello";
 
     @Autowired
     public OptionsController(InstrumentRepository instrumentRepository) {
@@ -19,7 +20,8 @@ public class OptionsController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/options/{symbol}")
     public ModelAndView displayData(@PathVariable String symbol) {
-        System.out.println(symbol);
-        return null;
+        ModelAndView modelAndView = new ModelAndView(OPTION_VIEW);
+        modelAndView.addObject("presenter", new Object());
+        return modelAndView;
     }
 }
