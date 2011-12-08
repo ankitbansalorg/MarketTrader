@@ -14,10 +14,10 @@ public class InstrumentPipeline {
     public static final String MONTH = "month";
     public static final String DAY = "day";
     public static final String HYPHEN = "-";
-    @Value(value = "${daily.average.download.url}")
+    @Value(value = "${instrument.download.url}")
     private String downloadUrl;
 
-    @Value(value = "${daily.average.store.url}")
+    @Value(value = "${instrument.store.url}")
     private String storageUrl;
 
     private InstrumentCsvDownloader instrumentCsvDownloader;

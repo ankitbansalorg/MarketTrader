@@ -32,7 +32,7 @@ public class InstrumentFileServer {
     }
 
        private void storeFileData(File file) {
-        List<Instrument> dailyAverages =  instrumentCsvParser.parse(file);
-        instrumentLoader.loadData(dailyAverages);
+        List<Instrument> instruments =  instrumentCsvParser.parse(file);
+        instrumentLoader.loadData(instruments);
     }
 }

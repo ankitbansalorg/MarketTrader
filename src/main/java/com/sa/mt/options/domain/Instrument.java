@@ -145,7 +145,7 @@ public class Instrument {
     @Override
 
     public String toString() {
-        return "DailyAverage{" +
+        return "Instrument{" +
                 "symbol='" + symbol + '\'' +
                 ", instrumentType=" + instrumentType +
                 ", strikePrice=" + strikePrice +

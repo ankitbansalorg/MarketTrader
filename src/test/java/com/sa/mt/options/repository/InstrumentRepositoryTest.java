@@ -18,7 +18,7 @@ import static com.sa.mt.options.domain.OptionType.PUT;
 import static com.sa.mt.options.domain.InstrumentType.OPTION;
 import static com.sa.mt.utils.DateUtils.getDate;
 import static junit.framework.Assert.assertEquals;
-import static com.sa.mt.options.repository.InstrumentRepository.DAILY_AVERAGES;
+import static com.sa.mt.options.repository.InstrumentRepository.INSTRUMENTS;
 import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 
@@ -35,22 +35,22 @@ public class InstrumentRepositoryTest {
 
     @Before
     public void setUp() {
-        mongoTemplate.dropCollection(DAILY_AVERAGES);
+        mongoTemplate.dropCollection(INSTRUMENTS);
     }
 
      @Test
-      public void shouldStoreDailyAverages() {
-         Instrument dailyAverage = new Instrument("NIFTY", OPTION, 6450, PUT, getDate("2-JAN-2008"), getDate("27-MAR-2008"));
-         repository.save(Arrays.asList(dailyAverage));
-         List<Instrument> dailyAverages = repository.getAll();
-         assertEquals(1, dailyAverages.size());
-         assertEquals(dailyAverage, dailyAverages.get(0));
+      public void shouldStoreInstruments() {
+         Instrument instrument = new Instrument("NIFTY", OPTION, 6450, PUT, getDate("2-JAN-2008"), getDate("27-MAR-2008"));
+         repository.save(Arrays.asList(instrument));
+         List<Instrument> instruments = repository.getAll();
+         assertEquals(1, instruments.size());
+         assertEquals(instrument, instruments.get(0));
       }
 
      @Test
       public void shouldCheckWhetherDataExistsForGivenDate() {
-         Instrument dailyAverage = new Instrument("NIFTY", OPTION, 6450, PUT, getDate("2-JAN-2008"), getDate("27-MAR-2008"));
-         repository.save(Arrays.asList(dailyAverage));
+         Instrument instrument = new Instrument("NIFTY", OPTION, 6450, PUT, getDate("2-JAN-2008"), getDate("27-MAR-2008"));
+         repository.save(Arrays.asList(instrument));
          assertTrue(repository.dataExistsForDate(getDate("2-JAN-2008")));
          assertFalse(repository.dataExistsForDate(getDate("3-JAN-2008")));
       }

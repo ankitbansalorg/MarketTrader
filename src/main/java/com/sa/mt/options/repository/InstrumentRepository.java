@@ -14,22 +14,22 @@ import com.sa.mt.options.domain.Instrument;
 @Repository
 public class InstrumentRepository {
 
-    public static final String DAILY_AVERAGES = "daily_averages";
+    public static final String INSTRUMENTS = "instruments";
 
     @Autowired
     private MongoTemplate mongoTemplate;
 
-    public void save(List<Instrument> dailyAverages) {
-        mongoTemplate.insertList(DAILY_AVERAGES, dailyAverages);
+    public void save(List<Instrument> instruments) {
+        mongoTemplate.insertList(INSTRUMENTS, instruments);
     }
 
     public List<Instrument> getAll() {
-        return mongoTemplate.getCollection(DAILY_AVERAGES, Instrument.class);
+        return mongoTemplate.getCollection(INSTRUMENTS, Instrument.class);
     }
 
     public boolean dataExistsForDate(Date date) {
     	DBObject query  = new QueryBuilder().start().put("date").is(date).get();
-    	DBObject obj = mongoTemplate.getCollection(DAILY_AVERAGES).findOne(query);
+    	DBObject obj = mongoTemplate.getCollection(INSTRUMENTS).findOne(query);
         return obj != null;
     }
 }

@@ -31,29 +31,29 @@ public class InstrumentLoaderTest {
     }
 
     @Test
-    public void shouldLoadDailyAverageData() {
-        ArrayList<Instrument> dailyAverages = new ArrayList<Instrument>();
+    public void shouldLoadInstrumentData() {
+        ArrayList<Instrument> instruments = new ArrayList<Instrument>();
         Date date = new Date();
-        dailyAverages.add(new Instrument("NIFTY", OPTION, 6450, PUT, date, getDate("27-MAR-2008"))) ;
+        instruments.add(new Instrument("NIFTY", OPTION, 6450, PUT, date, getDate("27-MAR-2008"))) ;
         when(instrumentRepository.dataExistsForDate(date)).thenReturn(false);
-        loader.loadData(dailyAverages);
-        verify(instrumentRepository).save(dailyAverages);
+        loader.loadData(instruments);
+        verify(instrumentRepository).save(instruments);
     }
 
      @Test
       public void shouldNotLoadDataWhenAlreadyExists() {
-        ArrayList<Instrument> dailyAverages = new ArrayList<Instrument>();
+        ArrayList<Instrument> instruments = new ArrayList<Instrument>();
         Date date = new Date();
-        dailyAverages.add(new Instrument("NIFTY", OPTION, 6450, PUT, date, getDate("27-MAR-2008"))) ;
+        instruments.add(new Instrument("NIFTY", OPTION, 6450, PUT, date, getDate("27-MAR-2008"))) ;
         when(instrumentRepository.dataExistsForDate(date)).thenReturn(true);
-        loader.loadData(dailyAverages);
-        verify(instrumentRepository, times(0)).save(dailyAverages);
+        loader.loadData(instruments);
+        verify(instrumentRepository, times(0)).save(instruments);
       }
 
     @Test
       public void shouldNotThrowErrorForEmptyList() {
-        ArrayList<Instrument> dailyAverages = new ArrayList<Instrument>();
-        loader.loadData(dailyAverages);
-        verify(instrumentRepository, times(0)).save(dailyAverages);
+        ArrayList<Instrument> instruments = new ArrayList<Instrument>();
+        loader.loadData(instruments);
+        verify(instrumentRepository, times(0)).save(instruments);
       }
 }

@@ -7,7 +7,7 @@ import org.springframework.context.support.GenericXmlApplicationContext;
 public class MarketTrader {
     public static void main(String[] args) {
         ApplicationContext context = new GenericXmlApplicationContext("src/main/webapp/WEB-INF/applicationContext.xml");
-        InstrumentPipeline pipeline = (InstrumentPipeline) context.getBean("dailyAveragePipeline");
+        InstrumentPipeline pipeline = (InstrumentPipeline) context.getBean("instrumentPipeline");
         pipeline.execute();
     }
 }

@@ -10,7 +10,7 @@ import static org.junit.Assert.assertSame;
 public class OptionTypeTest {
     
     @Test
-    public void shouldIdentifyDailyAverageType() {
+    public void shouldIdentifyOptionsType() {
        assertSame(CALL, identify("CA"));
        assertSame(CALL, identify("CE"));
        assertSame(PUT, identify("PA"));

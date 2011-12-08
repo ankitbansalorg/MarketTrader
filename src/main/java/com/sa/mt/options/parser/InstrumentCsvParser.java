@@ -24,17 +24,17 @@ public class InstrumentCsvParser {
 
     public static final String[] HEADER = {"INSTRUMENT", "SYMBOL", "EXPIRY_DT", "STRIKE_PR", "OPTION_TYP", "OPEN", "HIGH", "LOW", "CLOSE", "SETTLE_PR", "CONTRACTS", "VAL_INLAKH", "OPEN_INT", "CHG_IN_OI", "TIMESTAMP", ""};
 
-    public List<Instrument> parse(File dailyAverageCsv) {
-        List<String[]> rows = readFile(dailyAverageCsv);
+    public List<Instrument> parse(File instrumentCsv) {
+        List<String[]> rows = readFile(instrumentCsv);
         validate(rows);
-        List<Instrument> dailyAverageList = new ArrayList<Instrument>();
+        List<Instrument> instrumentList = new ArrayList<Instrument>();
         for (int i = 1; i < rows.size(); i++) {
-            Instrument dailyAverage = transform(rows.get(i));
-            if (dailyAverage != null) {
-                dailyAverageList.add(dailyAverage);
+            Instrument instrument = transform(rows.get(i));
+            if (instrument != null) {
+                instrumentList.add(instrument);
             }
         }
-        return dailyAverageList;
+        return instrumentList;
     }
 
     private Instrument transform(String[] row) {
@@ -56,9 +56,9 @@ public class InstrumentCsvParser {
         return InstrumentType.identify(row[0]) == OPTION;
     }
 
-    private List<String[]> readFile(File dailyAverageCsv) {
+    private List<String[]> readFile(File instrumentCsv) {
         try {
-            FileReader reader = new FileReader(dailyAverageCsv);
+            FileReader reader = new FileReader(instrumentCsv);
             CSVReader csvReader = new CSVReader(reader);
             return csvReader.readAll();
         } catch (IOException e) {

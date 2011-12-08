@@ -18,11 +18,11 @@ public class InstrumentLoader {
         this.instrumentRepository = instrumentRepository;
     }
 
-    public void loadData(List<Instrument> dailyAverages) {
-        if(dailyAverages.size() > 0) {
-            Date date = dailyAverages.get(0).getDate();
+    public void loadData(List<Instrument> instruments) {
+        if(instruments.size() > 0) {
+            Date date = instruments.get(0).getDate();
             if(!instrumentRepository.dataExistsForDate(date)) {
-                instrumentRepository.save(dailyAverages);
+                instrumentRepository.save(instruments);
             }
         }
     }
