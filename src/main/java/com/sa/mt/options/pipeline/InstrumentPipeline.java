@@ -25,7 +25,7 @@ public class InstrumentPipeline {
         this.instrumentLoader = instrumentLoader;
     }
 
-    public void storeData(String storageUrl) {
+    public void storeData() {
         String[] fileNames = new File(storageUrl).list();
         for(String fileName : fileNames) {
             if(fileName.endsWith(".csv")) {

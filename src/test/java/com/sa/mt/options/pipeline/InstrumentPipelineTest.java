@@ -41,7 +41,7 @@ public class InstrumentPipelineTest {
         File mockFile = mock(File.class);
         whenNew(File.class).withArguments(anyString()).thenReturn(mockFile);
         when(mockFile.list()).thenReturn(new String[] {"File1.csv", "File2.csv"});
-        pipeline.storeData("some url");
+        pipeline.storeData();
         verify(instrumentCsvParser, times(2)).parse(any(File.class));
         verify(instrumentLoader, times(2)).loadData(anyListOf(Instrument.class));
       }

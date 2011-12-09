@@ -24,6 +24,24 @@
         </property>
     </bean>
 
+    <bean id="instrumentsPipelineInvoker" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean"
+          lazy-init="true">
+        <property name="targetObject" ref="instrumentPipeline"/>
+        <property name="targetMethod" value="storeData"/>
+    </bean>
+
+    <bean id="instrumentsCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail" ref="instrumentsPipelineInvoker"/>
+        <property name="cronExpression" value="${cron.for.instruments.pipeline}"/>
+    </bean>
+
+    <bean id="springSchedulerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="instrumentsCronTrigger"/>
+            </list>
+        </property>
+    </bean>
 	<context:annotation-config />
 
 </beans>
