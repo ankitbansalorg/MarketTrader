@@ -10,12 +10,12 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 @Service
-public class DailyAverageCsvDownloader {
+public class InstrumentCsvDownloader {
 
     private  Content content;
 
     @Autowired
-    public DailyAverageCsvDownloader(Content content) {
+    public InstrumentCsvDownloader(Content content) {
           this.content = content;
     }
 

@@ -6,7 +6,7 @@ public class Instrument {
     private String symbol;
     private InstrumentType instrumentType;
     private double strikePrice;
-    private DailyAverageType type;
+    private OptionType type;
     private double openPrice;
     private double lowPrice;
     private double highPrice;
@@ -20,7 +20,7 @@ public class Instrument {
     private Date expiryDate;
 
 
-    public Instrument(String symbol, InstrumentType instrumentType, double strikePrice, DailyAverageType type,
+    public Instrument(String symbol, InstrumentType instrumentType, double strikePrice, OptionType type,
                         double openPrice, double lowPrice, double highPrice,
                         double closePrice, double settlePrice, long contractsTraded,
                         double tradedAmount, long openInterest, long changeInOI, Date date,
@@ -46,7 +46,7 @@ public class Instrument {
 
     }
 
-    public Instrument(String symbol, InstrumentType instrumentType, double strikePrice, DailyAverageType type,
+    public Instrument(String symbol, InstrumentType instrumentType, double strikePrice, OptionType type,
                         Date date, Date expiryDate) {
         this(symbol, instrumentType, strikePrice, type, 0, 0, 0, 0, 0, 0, 0, 0, 0, date, expiryDate);
     }
@@ -94,7 +94,7 @@ public class Instrument {
         return strikePrice;
     }
 
-    public DailyAverageType getType() {
+    public OptionType getType() {
         return type;
     }
 

@@ -14,21 +14,21 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import java.util.Arrays;
 import java.util.List;
 
-import static com.sa.mt.options.domain.DailyAverageType.PUT;
+import static com.sa.mt.options.domain.OptionType.PUT;
 import static com.sa.mt.options.domain.InstrumentType.OPTION;
 import static com.sa.mt.utils.DateUtils.getDate;
 import static junit.framework.Assert.assertEquals;
-import static com.sa.mt.options.repository.DailyAverageRepository.DAILY_AVERAGES;
+import static com.sa.mt.options.repository.InstrumentRepository.DAILY_AVERAGES;
 import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"file:src/test/resources/testContext.xml"})
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class})
-public class DailyAverageRepositoryTest {
+public class InstrumentRepositoryTest {
 
     @Autowired
-    private DailyAverageRepository repository;
+    private InstrumentRepository repository;
 
     @Autowired
     private MongoTemplate mongoTemplate;

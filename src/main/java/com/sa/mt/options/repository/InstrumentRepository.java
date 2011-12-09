@@ -12,7 +12,7 @@ import com.mongodb.QueryBuilder;
 import com.sa.mt.options.domain.Instrument;
 
 @Repository
-public class DailyAverageRepository {
+public class InstrumentRepository {
 
     public static final String DAILY_AVERAGES = "daily_averages";
 

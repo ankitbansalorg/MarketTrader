@@ -1,8 +1,8 @@
 package com.sa.mt.options.pipeline;
 
 import com.sa.mt.options.domain.Instrument;
-import com.sa.mt.options.loader.DailyAverageLoader;
-import com.sa.mt.options.parser.DailyAverageCsvParser;
+import com.sa.mt.options.loader.InstrumentLoader;
+import com.sa.mt.options.parser.InstrumentCsvParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,14 +10,14 @@ import java.io.File;
 import java.util.List;
 
 @Service
-public class DailyAverageFileServer {
-    private DailyAverageCsvParser dailyAverageCsvParser;
-    private DailyAverageLoader dailyAverageLoader;
+public class InstrumentFileServer {
+    private InstrumentCsvParser instrumentCsvParser;
+    private InstrumentLoader instrumentLoader;
 
     @Autowired
-    public DailyAverageFileServer(DailyAverageCsvParser dailyAverageCsvParser, DailyAverageLoader dailyAverageLoader) {
-        this.dailyAverageCsvParser = dailyAverageCsvParser;
-        this.dailyAverageLoader = dailyAverageLoader;
+    public InstrumentFileServer(InstrumentCsvParser instrumentCsvParser, InstrumentLoader instrumentLoader) {
+        this.instrumentCsvParser = instrumentCsvParser;
+        this.instrumentLoader = instrumentLoader;
     }
 
     public void storeData(String storageUrl) {
@@ -32,7 +32,7 @@ public class DailyAverageFileServer {
     }
 
        private void storeFileData(File file) {
-        List<Instrument> dailyAverages =  dailyAverageCsvParser.parse(file);
-        dailyAverageLoader.loadData(dailyAverages);
+        List<Instrument> dailyAverages =  instrumentCsvParser.parse(file);
+        instrumentLoader.loadData(dailyAverages);
     }
 }

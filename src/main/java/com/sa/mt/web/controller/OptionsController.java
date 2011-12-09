@@ -1,6 +1,6 @@
 package com.sa.mt.web.controller;
 
-import com.sa.mt.options.repository.DailyAverageRepository;
+import com.sa.mt.options.repository.InstrumentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,11 +10,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class OptionsController {
-     private DailyAverageRepository dailyAverageRepository;
+     private InstrumentRepository instrumentRepository;
 
     @Autowired
-    public OptionsController(DailyAverageRepository dailyAverageRepository) {
-        this.dailyAverageRepository = dailyAverageRepository;
+    public OptionsController(InstrumentRepository instrumentRepository) {
+        this.instrumentRepository = instrumentRepository;
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/options/{symbol}")

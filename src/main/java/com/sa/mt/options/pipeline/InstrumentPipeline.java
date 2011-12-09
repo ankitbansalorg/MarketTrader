@@ -1,20 +1,15 @@
 package com.sa.mt.options.pipeline;
 
-import com.sa.mt.options.domain.Instrument;
-import com.sa.mt.options.downloader.DailyAverageCsvDownloader;
-import com.sa.mt.options.loader.DailyAverageLoader;
-import com.sa.mt.options.parser.DailyAverageCsvParser;
-import org.apache.commons.io.FileUtils;
+import com.sa.mt.options.downloader.InstrumentCsvDownloader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
-public class DailyAveragePipeline {
+public class InstrumentPipeline {
     public static final String YEAR = "year";
     public static final String MONTH = "month";
     public static final String DAY = "day";
@@ -25,17 +20,17 @@ public class DailyAveragePipeline {
     @Value(value = "${daily.average.store.url}")
     private String storageUrl;
 
-    private DailyAverageCsvDownloader dailyAverageCsvDownloader;
+    private InstrumentCsvDownloader instrumentCsvDownloader;
 
     private static final String DATE_FORMAT = "yyyy-MMM-dd";
 
-    private DailyAverageFileServer dailyAverageFileServer;
+    private InstrumentFileServer instrumentFileServer;
 
     @Autowired
-    public DailyAveragePipeline(DailyAverageCsvDownloader dailyAverageCsvDownloader,
-                                DailyAverageFileServer dailyAverageFileServer) {
-        this.dailyAverageCsvDownloader = dailyAverageCsvDownloader;
-        this.dailyAverageFileServer = dailyAverageFileServer;
+    public InstrumentPipeline(InstrumentCsvDownloader instrumentCsvDownloader,
+                              InstrumentFileServer instrumentFileServer) {
+        this.instrumentCsvDownloader = instrumentCsvDownloader;
+        this.instrumentFileServer = instrumentFileServer;
     }
 
 
@@ -43,14 +38,14 @@ public class DailyAveragePipeline {
         SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
         String[] dateStrings = sdf.format(new Date()).split(HYPHEN);
         String currentDateUrl = downloadUrl.replaceAll(YEAR, dateStrings[0]).replaceAll(MONTH, dateStrings[1].toUpperCase()).replaceAll(DAY, dateStrings[2]);
-        dailyAverageCsvDownloader.download(currentDateUrl, storageUrl);
+        instrumentCsvDownloader.download(currentDateUrl, storageUrl);
 
-        dailyAverageFileServer.storeData(storageUrl);
+        instrumentFileServer.storeData(storageUrl);
     }
 
     //for testing purpose
-    public void setDailyAverageCsvDownloader(DailyAverageCsvDownloader dailyAverageCsvDownloader) {
-        this.dailyAverageCsvDownloader = dailyAverageCsvDownloader;
+    public void setInstrumentCsvDownloader(InstrumentCsvDownloader instrumentCsvDownloader) {
+        this.instrumentCsvDownloader = instrumentCsvDownloader;
     }
 
     public void setStorageUrl(String storageUrl) {

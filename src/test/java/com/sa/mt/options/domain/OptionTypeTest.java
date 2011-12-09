@@ -2,12 +2,12 @@ package com.sa.mt.options.domain;
 
 import org.junit.Test;
 
-import static com.sa.mt.options.domain.DailyAverageType.PUT;
-import static com.sa.mt.options.domain.DailyAverageType.CALL;
-import static com.sa.mt.options.domain.DailyAverageType.identify;
+import static com.sa.mt.options.domain.OptionType.PUT;
+import static com.sa.mt.options.domain.OptionType.CALL;
+import static com.sa.mt.options.domain.OptionType.identify;
 import static org.junit.Assert.assertSame;
 
-public class DailyAverageTypeTest {
+public class OptionTypeTest {
     
     @Test
     public void shouldIdentifyDailyAverageType() {

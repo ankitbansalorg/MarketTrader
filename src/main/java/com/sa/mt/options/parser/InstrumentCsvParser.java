@@ -3,9 +3,7 @@ package com.sa.mt.options.parser;
 import au.com.bytecode.opencsv.CSVReader;
 import com.sa.mt.exception.ImproperFormatException;
 import com.sa.mt.options.domain.Instrument;
-import com.sa.mt.options.domain.DailyAverageType;
 import com.sa.mt.options.domain.InstrumentType;
-import com.sa.mt.utils.DateUtils;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -13,18 +11,16 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
-import static com.sa.mt.options.domain.DailyAverageType.CALL;
-import static com.sa.mt.options.domain.DailyAverageType.identify;
+import static com.sa.mt.options.domain.OptionType.identify;
 import static com.sa.mt.options.domain.InstrumentType.OPTION;
 import static com.sa.mt.utils.DateUtils.getDate;
 import static java.lang.Double.parseDouble;
 import static java.lang.Long.parseLong;
 
 @Service
-public class DailyAverageCsvParser {
+public class InstrumentCsvParser {
 
     public static final String[] HEADER = {"INSTRUMENT", "SYMBOL", "EXPIRY_DT", "STRIKE_PR", "OPTION_TYP", "OPEN", "HIGH", "LOW", "CLOSE", "SETTLE_PR", "CONTRACTS", "VAL_INLAKH", "OPEN_INT", "CHG_IN_OI", "TIMESTAMP", ""};
 

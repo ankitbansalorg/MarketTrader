@@ -1,7 +1,6 @@
 package com.sa.mt.options.downloader;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.mockito.Matchers.any;
@@ -13,17 +12,17 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.io.InputStream;
-public class DailyAverageCsvDownloaderTest {
+public class InstrumentCsvDownloaderTest {
 
     @Mock
     private Content content;
 
-    private DailyAverageCsvDownloader downloader;
+    private InstrumentCsvDownloader downloader;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        downloader = new DailyAverageCsvDownloader(content);
+        downloader = new InstrumentCsvDownloader(content);
     }
 
     @Test(expected = RuntimeException.class)
