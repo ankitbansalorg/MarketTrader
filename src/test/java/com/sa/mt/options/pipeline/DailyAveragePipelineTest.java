@@ -19,24 +19,26 @@ import java.util.Date;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.verify;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"file:src/test/resources/testContext.xml"})
-@TestExecutionListeners({DependencyInjectionTestExecutionListener.class})
 public class DailyAveragePipelineTest {
-
-	@Value(value = "${daily.average.store.url}")
-    private String storageUrl;
 	
 	@Mock
     private DailyAverageCsvDownloader dailyAverageCsvDownloader;
 
     @Autowired
-    private com.sa.mt.options.pipeline.DailyAveragePipeline dailyAveragePipeline;
+    private DailyAveragePipeline dailyAveragePipeline;
+
+    private String storageUrl = "Some Path";
+    @Mock
+    private DailyAverageFileServer dailyAverageFileServer;
+
+    private String downloadPath = "http://www.nseindia.com/content/historical/DERIVATIVES/year/month/fodaymonthyearbhav.csv.zip";
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        dailyAveragePipeline.setDailyAverageCsvDownloader(dailyAverageCsvDownloader);
+        dailyAveragePipeline = new DailyAveragePipeline(dailyAverageCsvDownloader, dailyAverageFileServer);
+        dailyAveragePipeline.setStorageUrl(storageUrl);
+        dailyAveragePipeline.setDownloadUrl(downloadPath);
     }
 
      @Test
@@ -47,5 +49,6 @@ public class DailyAveragePipelineTest {
          String downloadPath = "http://www.nseindia.com/content/historical/DERIVATIVES/" + date[0] + "/" + date[1].toUpperCase()+
                  "/fo" + date[2] + date[1].toUpperCase() + date[0] + "bhav.csv.zip";
          verify(dailyAverageCsvDownloader).download(eq(downloadPath), eq(storageUrl));
+         verify(dailyAverageFileServer).storeData(eq(storageUrl));
       }
 }

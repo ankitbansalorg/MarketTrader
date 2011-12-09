@@ -28,15 +28,14 @@ public class DailyAveragePipeline {
     private DailyAverageCsvDownloader dailyAverageCsvDownloader;
 
     private static final String DATE_FORMAT = "yyyy-MMM-dd";
-    private DailyAverageCsvParser dailyAverageCsvParser;
-    private DailyAverageLoader dailyAverageLoader;
+
+    private DailyAverageFileServer dailyAverageFileServer;
 
     @Autowired
     public DailyAveragePipeline(DailyAverageCsvDownloader dailyAverageCsvDownloader,
-                                DailyAverageCsvParser dailyAverageCsvParser, DailyAverageLoader dailyAverageLoader) {
+                                DailyAverageFileServer dailyAverageFileServer) {
         this.dailyAverageCsvDownloader = dailyAverageCsvDownloader;
-        this.dailyAverageCsvParser = dailyAverageCsvParser;
-        this.dailyAverageLoader = dailyAverageLoader;
+        this.dailyAverageFileServer = dailyAverageFileServer;
     }
 
 
@@ -46,29 +45,19 @@ public class DailyAveragePipeline {
         String currentDateUrl = downloadUrl.replaceAll(YEAR, dateStrings[0]).replaceAll(MONTH, dateStrings[1].toUpperCase()).replaceAll(DAY, dateStrings[2]);
         dailyAverageCsvDownloader.download(currentDateUrl, storageUrl);
 
-
-        String[] fileNames = new File(storageUrl).list();
-        for(String fileName : fileNames) {
-            if(fileName.endsWith(".csv")) {
-                File parsableFile = new File(storageUrl + fileName);
-                storeFileData(parsableFile);
-                parsableFile.delete();
-            }
-        }
-    }
-
-    private void storeFileData(File file) {
-        List<Instrument> dailyAverages =  dailyAverageCsvParser.parse(file);
-        dailyAverageLoader.loadData(dailyAverages);
-    }
-
-    private Iterator<File> csvFilesAt(String storageUrl) {
-        String[] ext = {"zip"};
-        return FileUtils.iterateFiles(new File(storageUrl), ext, false);
+        dailyAverageFileServer.storeData(storageUrl);
     }
 
     //for testing purpose
     public void setDailyAverageCsvDownloader(DailyAverageCsvDownloader dailyAverageCsvDownloader) {
         this.dailyAverageCsvDownloader = dailyAverageCsvDownloader;
+    }
+
+    public void setStorageUrl(String storageUrl) {
+        this.storageUrl = storageUrl;
+    }
+
+    public void setDownloadUrl(String downloadUrl) {
+        this.downloadUrl =  downloadUrl;
     }
 }
