@@ -1,6 +1,6 @@
 package com.sa.mt.options.pipeline;
 
-import com.sa.mt.options.downloader.InstrumentCsvDownloader;
+import com.sa.mt.options.downloader.HttpWebDownloader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -20,16 +20,16 @@ public class InstrumentPipeline {
     @Value(value = "${instrument.store.url}")
     private String storageUrl;
 
-    private InstrumentCsvDownloader instrumentCsvDownloader;
+    private HttpWebDownloader httpWebDownloader;
 
     private static final String DATE_FORMAT = "yyyy-MMM-dd";
 
     private InstrumentFileServer instrumentFileServer;
 
     @Autowired
-    public InstrumentPipeline(InstrumentCsvDownloader instrumentCsvDownloader,
+    public InstrumentPipeline(HttpWebDownloader httpWebDownloader,
                               InstrumentFileServer instrumentFileServer) {
-        this.instrumentCsvDownloader = instrumentCsvDownloader;
+        this.httpWebDownloader = httpWebDownloader;
         this.instrumentFileServer = instrumentFileServer;
     }
 
@@ -38,14 +38,14 @@ public class InstrumentPipeline {
         SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
         String[] dateStrings = sdf.format(new Date()).split(HYPHEN);
         String currentDateUrl = downloadUrl.replaceAll(YEAR, dateStrings[0]).replaceAll(MONTH, dateStrings[1].toUpperCase()).replaceAll(DAY, dateStrings[2]);
-        instrumentCsvDownloader.download(currentDateUrl, storageUrl);
+        httpWebDownloader.download(currentDateUrl, storageUrl);
 
         instrumentFileServer.storeData(storageUrl);
     }
 
     //for testing purpose
-    public void setInstrumentCsvDownloader(InstrumentCsvDownloader instrumentCsvDownloader) {
-        this.instrumentCsvDownloader = instrumentCsvDownloader;
+    public void setHttpWebDownloader(HttpWebDownloader httpWebDownloader) {
+        this.httpWebDownloader = httpWebDownloader;
     }
 
     public void setStorageUrl(String storageUrl) {

@@ -12,17 +12,17 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.io.InputStream;
-public class InstrumentCsvDownloaderTest {
+public class HttpWebDownloaderTest {
 
     @Mock
     private Content content;
 
-    private InstrumentCsvDownloader downloader;
+    private HttpWebDownloader downloader;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        downloader = new InstrumentCsvDownloader(content);
+        downloader = new HttpWebDownloader(content);
     }
 
     @Test(expected = RuntimeException.class)

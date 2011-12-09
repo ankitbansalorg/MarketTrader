@@ -10,12 +10,12 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 @Service
-public class InstrumentCsvDownloader {
+public class HttpWebDownloader {
 
     private  Content content;
 
     @Autowired
-    public InstrumentCsvDownloader(Content content) {
+    public HttpWebDownloader(Content content) {
           this.content = content;
     }
 

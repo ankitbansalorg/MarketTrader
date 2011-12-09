@@ -1,6 +1,6 @@
 package com.sa.mt.options.pipeline;
 
-import com.sa.mt.options.downloader.InstrumentCsvDownloader;
+import com.sa.mt.options.downloader.HttpWebDownloader;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -16,7 +16,7 @@ import static org.mockito.Mockito.verify;
 public class InstrumentPipelineTest {
 	
 	@Mock
-    private InstrumentCsvDownloader instrumentCsvDownloader;
+    private HttpWebDownloader httpWebDownloader;
 
     @Autowired
     private InstrumentPipeline instrumentPipeline;
@@ -30,7 +30,7 @@ public class InstrumentPipelineTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        instrumentPipeline = new InstrumentPipeline(instrumentCsvDownloader, instrumentFileServer);
+        instrumentPipeline = new InstrumentPipeline(httpWebDownloader, instrumentFileServer);
         instrumentPipeline.setStorageUrl(storageUrl);
         instrumentPipeline.setDownloadUrl(downloadPath);
     }
@@ -42,7 +42,7 @@ public class InstrumentPipelineTest {
          String[] date = sdf.format(new Date()).split("-");
          String downloadPath = "http://www.nseindia.com/content/historical/DERIVATIVES/" + date[0] + "/" + date[1].toUpperCase()+
                  "/fo" + date[2] + date[1].toUpperCase() + date[0] + "bhav.csv.zip";
-         verify(instrumentCsvDownloader).download(eq(downloadPath), eq(storageUrl));
+         verify(httpWebDownloader).download(eq(downloadPath), eq(storageUrl));
          verify(instrumentFileServer).storeData(eq(storageUrl));
       }
 }
