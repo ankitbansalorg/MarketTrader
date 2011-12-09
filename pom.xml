@@ -5,7 +5,7 @@
 	<artifactId>MarketTrader</artifactId>
 	<packaging>war</packaging>
 	<version>1.0</version>
-	<name>com.sa.mt.MarketTrader</name>
+	<name>MarketTrader</name>
 	<url>http://maven.apache.org</url>
 
 	<repositories>
@@ -116,6 +116,7 @@
 	</dependencies>
 
 	<build>
+        <finalName>MarketTrader</finalName>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -125,7 +126,10 @@
 					<target>1.6</target>
 				</configuration>
 			</plugin>
+
+
 		</plugins>
+
 	</build>
 
 </project>

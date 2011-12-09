@@ -13,7 +13,7 @@ if [[ $? != 0 ]] ; then
     exit $?
 fi
 
-cp target/MarketTrader-1.0.war $TOMCAT/webapps/
+cp target/MarketTrader.war $TOMCAT/webapps/
 
 echo Starting Tomcat
 sh $TOMCAT/bin/startup.sh
