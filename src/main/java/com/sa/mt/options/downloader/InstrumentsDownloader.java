@@ -1,6 +1,5 @@
-package com.sa.mt.options.pipeline;
+package com.sa.mt.options.downloader;
 
-import com.sa.mt.options.downloader.HttpWebDownloader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -9,7 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
-public class InstrumentPipeline {
+public class InstrumentsDownloader {
     public static final String YEAR = "year";
     public static final String MONTH = "month";
     public static final String DAY = "day";
@@ -24,13 +23,9 @@ public class InstrumentPipeline {
 
     private static final String DATE_FORMAT = "yyyy-MMM-dd";
 
-    private InstrumentFileServer instrumentFileServer;
-
     @Autowired
-    public InstrumentPipeline(HttpWebDownloader httpWebDownloader,
-                              InstrumentFileServer instrumentFileServer) {
+    public InstrumentsDownloader(HttpWebDownloader httpWebDownloader) {
         this.httpWebDownloader = httpWebDownloader;
-        this.instrumentFileServer = instrumentFileServer;
     }
 
 
@@ -39,8 +34,6 @@ public class InstrumentPipeline {
         String[] dateStrings = sdf.format(new Date()).split(HYPHEN);
         String currentDateUrl = downloadUrl.replaceAll(YEAR, dateStrings[0]).replaceAll(MONTH, dateStrings[1].toUpperCase()).replaceAll(DAY, dateStrings[2]);
         httpWebDownloader.download(currentDateUrl, storageUrl);
-
-        instrumentFileServer.storeData(storageUrl);
     }
 
     //for testing purpose
