@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
          id="WebApp_ID" version="2.5">
 
-    <display-name>Which? Application</display-name>
+    <display-name>Market Trader</display-name>
     <listener>
         <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
     </listener>
@@ -18,10 +18,6 @@
     <servlet>
         <servlet-name>spring</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-        <init-param>
-        <param-name>contextConfigLocation</param-name>
-        <param-value>applicationContext.xml</param-value>
-    </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet>
@@ -37,7 +33,7 @@
 
     <servlet-mapping>
         <servlet-name>spring</servlet-name>
-        <url-pattern>/</url-pattern>
+        <url-pattern>/options</url-pattern>
     </servlet-mapping>
 
     <welcome-file-list>
