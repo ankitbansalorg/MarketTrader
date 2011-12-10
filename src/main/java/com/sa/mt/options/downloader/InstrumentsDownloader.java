@@ -1,5 +1,9 @@
 package com.sa.mt.options.downloader;
 
+import com.sa.mt.options.domain.DownloadStatus;
+import com.sa.mt.options.repository.DownloadStatusRepository;
+import org.joda.time.DateTime;
+import org.joda.time.Days;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -20,20 +24,31 @@ public class InstrumentsDownloader {
     private String storageUrl;
 
     private HttpWebDownloader httpWebDownloader;
+    private DownloadStatusRepository downloadStatusRepository;
 
     private static final String DATE_FORMAT = "yyyy-MMM-dd";
 
     @Autowired
-    public InstrumentsDownloader(HttpWebDownloader httpWebDownloader) {
+    public InstrumentsDownloader(HttpWebDownloader httpWebDownloader, DownloadStatusRepository downloadStatusRepository) {
         this.httpWebDownloader = httpWebDownloader;
+        this.downloadStatusRepository = downloadStatusRepository;
     }
 
 
     public void execute() {
-        SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
-        String[] dateStrings = sdf.format(new Date()).split(HYPHEN);
-        String currentDateUrl = downloadUrl.replaceAll(YEAR, dateStrings[0]).replaceAll(MONTH, dateStrings[1].toUpperCase()).replaceAll(DAY, dateStrings[2]);
-        httpWebDownloader.download(currentDateUrl, storageUrl);
+        DownloadStatus downloadStatus = downloadStatusRepository.find(DownloadType.INSTRUMENT);
+        int daysDiff = Days.daysBetween(new DateTime(downloadStatus.getLastDownloadedDate()), new DateTime(new Date())).getDays();
+        for(int i = daysDiff; i > 0; i--) {
+            DateTime dateTime = new DateTime(new Date());
+            Date prevDate = dateTime.minusDays(i-1).toDate();
+            SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
+            String[] dateStrings = sdf.format(prevDate).split(HYPHEN);
+            String currentDateUrl = downloadUrl.replaceAll(YEAR, dateStrings[0]).
+                    replaceAll(MONTH, dateStrings[1].toUpperCase()).
+                    replaceAll(DAY, dateStrings[2]);
+            httpWebDownloader.download(currentDateUrl, storageUrl);
+        }
+
     }
 
     public void setStorageUrl(String storageUrl) {
