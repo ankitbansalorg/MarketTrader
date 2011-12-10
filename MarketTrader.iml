@@ -76,7 +76,6 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="lib" level="project" />
     <orderEntry type="module-library">
       <library>
         <CLASSES>
@@ -207,6 +206,87 @@
       <library>
         <CLASSES>
           <root url="jar://$MAVEN_REPOSITORY$/org/mockito/mockito-all/1.8.5/mockito-all-1.8.5.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-core/3.0.5.RELEASE/spring-core-3.0.5.RELEASE.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-beans/3.0.5.RELEASE/spring-beans-3.0.5.RELEASE.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-context/3.0.5.RELEASE/spring-context-3.0.5.RELEASE.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-context-support/3.0.5.RELEASE/spring-context-support-3.0.5.RELEASE.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MAVEN_REPOSITORY$/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-asm/3.0.5.RELEASE/spring-asm-3.0.5.RELEASE.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-tx/3.0.5.RELEASE/spring-tx-3.0.5.RELEASE.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-expression/3.0.5.RELEASE/spring-expression-3.0.5.RELEASE.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MAVEN_REPOSITORY$/quartz/quartz/1.5.2/quartz-1.5.2.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

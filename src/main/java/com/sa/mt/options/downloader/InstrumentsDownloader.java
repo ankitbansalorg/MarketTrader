@@ -36,11 +36,6 @@ public class InstrumentsDownloader {
         httpWebDownloader.download(currentDateUrl, storageUrl);
     }
 
-    //for testing purpose
-    public void setHttpWebDownloader(HttpWebDownloader httpWebDownloader) {
-        this.httpWebDownloader = httpWebDownloader;
-    }
-
     public void setStorageUrl(String storageUrl) {
         this.storageUrl = storageUrl;
     }

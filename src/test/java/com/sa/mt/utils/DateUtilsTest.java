@@ -3,7 +3,7 @@ package com.sa.mt.utils;
 import org.junit.Test;
 
 import java.util.Calendar;
-import java.util.TimeZone;
+import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
 
