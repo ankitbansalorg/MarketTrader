@@ -8,11 +8,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.logging.Logger;
 
 @Service
 public class HttpWebDownloader {
 
     private  Content content;
+
+    private static final Logger logger = Logger.getLogger(HttpWebDownloader.class.getName());
 
     @Autowired
     public HttpWebDownloader(Content content) {
@@ -23,14 +26,13 @@ public class HttpWebDownloader {
         HttpURLConnection connection = connection(downloadFrom);
         String[] filePath= downloadFrom.split("/");
         String fileName = filePath[filePath.length - 1];
-        System.out.println(downloadFrom);
         try {
             int response = connection.getResponseCode();
             if (HttpURLConnection.HTTP_OK == response) {
                 InputStream inputStream = connection.getInputStream();
                 content.saveTo(inputStream, downloadTo, fileName);
             } else {
-                throw new IllegalStateException("Could not establish a valid connection. Response Code: " + response);
+                logger.info("Couldn't download data from url : " + downloadFrom);
             }
 
         } catch (IOException e) {

@@ -36,8 +36,8 @@ public class HttpWebDownloaderTest {
          downloader.download("http1://test", null);
       }
 
-    @Test(expected = IllegalStateException.class)
-      public void shouldThrowExceptionForInvalidPath() {
+     @Test
+      public void shouldNotThrowExceptionForInvalidPath() {
          downloader.download("http://www.google.com/{sfdsd}", null);
       }
 
