@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.document.mongodb.MongoTemplate;
 import org.springframework.data.document.mongodb.query.Criteria;
 import org.springframework.data.document.mongodb.query.Query;
+import org.springframework.data.document.mongodb.query.Update;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -24,5 +25,10 @@ public class DownloadStatusRepository {
 
     public void save(List<DownloadStatus> downloadStatuses) {
         mongoTemplate.insertList(DOWNLOAD_STATUSES, downloadStatuses);
+    }
+
+    public void updateDownloadedDate(DownloadStatus downloadStatus) {
+        Query query = new Query(Criteria.where("downloadType").is(downloadStatus.getDownloadType()));
+        mongoTemplate.updateFirst(DOWNLOAD_STATUSES, query, Update.update("lastDownloadedDate", downloadStatus.getLastDownloadedDate()));
     }
 }

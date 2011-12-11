@@ -48,9 +48,19 @@ public class DownloadStatusRepositoryTest {
                 otherDownloadStatus);
 
         downloadStatusRepository.save(downloadStatuses);
-        DownloadStatus downloadStatus = downloadStatusRepository.find(DownloadType.INSTRUMENT);
+        DownloadStatus downloadStatus = downloadStatusRepository.find(INSTRUMENT);
         assertEquals(downloadStatusForInstrument, downloadStatus);
         assertFalse(otherDownloadStatus.equals(downloadStatus));
+    }
+
+    @Test
+    public void shouldUpdateDownloadStatusDate() {
+       DownloadStatus downloadStatus = downloadStatus(INSTRUMENT, getDate("10-May-2011"));
+       downloadStatusRepository.save(Arrays.asList(downloadStatus));
+        DownloadStatus newDownloadStatus = new DownloadStatus(INSTRUMENT, getDate("12-May-2011"));
+        downloadStatusRepository.updateDownloadedDate(newDownloadStatus);
+
+       assertEquals(newDownloadStatus, downloadStatusRepository.find(INSTRUMENT));
     }
 
     private DownloadStatus downloadStatus(DownloadType instrument, Date lastDownloadedDate) {

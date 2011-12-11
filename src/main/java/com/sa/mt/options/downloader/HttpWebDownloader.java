@@ -22,7 +22,7 @@ public class HttpWebDownloader {
           this.content = content;
     }
 
-    public void download(String downloadFrom, String downloadTo) {
+    public boolean download(String downloadFrom, String downloadTo) {
         HttpURLConnection connection = connection(downloadFrom);
         String[] filePath= downloadFrom.split("/");
         String fileName = filePath[filePath.length - 1];
@@ -31,8 +31,10 @@ public class HttpWebDownloader {
             if (HttpURLConnection.HTTP_OK == response) {
                 InputStream inputStream = connection.getInputStream();
                 content.saveTo(inputStream, downloadTo, fileName);
+                return true;
             } else {
                 logger.info("Couldn't download data from url : " + downloadFrom);
+                return false;
             }
 
         } catch (IOException e) {

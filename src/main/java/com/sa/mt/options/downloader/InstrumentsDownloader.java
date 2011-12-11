@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import static com.sa.mt.options.downloader.DownloadType.INSTRUMENT;
+
 @Service
 public class InstrumentsDownloader {
     public static final String YEAR = "year";
@@ -36,7 +38,7 @@ public class InstrumentsDownloader {
 
 
     public void execute() {
-        DownloadStatus downloadStatus = downloadStatusRepository.find(DownloadType.INSTRUMENT);
+        DownloadStatus downloadStatus = downloadStatusRepository.find(INSTRUMENT);
         int daysDiff = Days.daysBetween(new DateTime(downloadStatus.getLastDownloadedDate()), new DateTime(new Date())).getDays();
         for(int i = daysDiff; i > 0; i--) {
             DateTime dateTime = new DateTime(new Date());
@@ -46,7 +48,11 @@ public class InstrumentsDownloader {
             String currentDateUrl = downloadUrl.replaceAll(YEAR, dateStrings[0]).
                     replaceAll(MONTH, dateStrings[1].toUpperCase()).
                     replaceAll(DAY, dateStrings[2]);
-            httpWebDownloader.download(currentDateUrl, storageUrl);
+            boolean status = httpWebDownloader.download(currentDateUrl, storageUrl);
+
+            if(status) {
+                downloadStatusRepository.updateDownloadedDate(new DownloadStatus(INSTRUMENT, prevDate));
+            }
         }
 
     }

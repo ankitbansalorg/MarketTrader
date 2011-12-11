@@ -3,6 +3,8 @@ package com.sa.mt.options.downloader;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
@@ -38,13 +40,13 @@ public class HttpWebDownloaderTest {
 
      @Test
       public void shouldNotThrowExceptionForInvalidPath() {
-         downloader.download("http://www.google.com/{sfdsd}", null);
+         assertFalse(downloader.download("http://www.google.com/{sfdsd}", null));
       }
 
      @Test 
       public void shouldDownloadAndSaveFile() {
          String downloadTo = "test";
-         downloader.download("http://localhost/", downloadTo);
+         assertTrue(downloader.download("http://localhost/", downloadTo));
          verify(content).saveTo(any(InputStream.class), eq(downloadTo), anyString());
       }
 }

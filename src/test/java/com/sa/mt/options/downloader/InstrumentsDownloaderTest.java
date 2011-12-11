@@ -4,8 +4,10 @@ import com.sa.mt.options.domain.DownloadStatus;
 import com.sa.mt.options.repository.DownloadStatusRepository;
 import org.joda.time.DateTime;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
+import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.times;
@@ -59,11 +62,22 @@ public class InstrumentsDownloaderTest {
         assertEquals(toDayUrl, capturedPeople.get(1));
     }
 
+    @Test
+    public void shouldUpdateDownloadStatusForSuccessfulDownloads() {
+        when(downloadStatusRepository.find(DownloadType.INSTRUMENT)).thenReturn
+                (new DownloadStatus(DownloadType.INSTRUMENT, dateBeforeSpecifiedDays(1)));
+
+        String prevDayUrl = urlForDaysBefore(0);
+        when(httpWebDownloader.download(eq(prevDayUrl), anyString())).thenReturn(true);
+        instrumentsDownloader.execute();
+        verify(downloadStatusRepository, times(1)).updateDownloadedDate(any(DownloadStatus.class));
+    }
+
     private String urlForDaysBefore(int numberOfDays) {
-        Date twoDaysBefore = dateBeforeSpecifiedDays(numberOfDays);
+        Date daysBefore = dateBeforeSpecifiedDays(numberOfDays);
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MMM-dd");
-        String[] date = sdf.format(twoDaysBefore).split("-");
+        String[] date = sdf.format(daysBefore).split("-");
         return "http://www.nseindia.com/content/historical/DERIVATIVES/" + date[0] + "/" + date[1].toUpperCase()+
                 "/fo" + date[2] + date[1].toUpperCase() + date[0] + "bhav.csv.zip";
     }
