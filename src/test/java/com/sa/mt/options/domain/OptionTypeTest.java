@@ -13,7 +13,9 @@ public class OptionTypeTest {
     public void shouldIdentifyOptionsType() {
        assertSame(CALL, identify("CA"));
        assertSame(CALL, identify("CE"));
+       assertSame(CALL, identify("Call"));
        assertSame(PUT, identify("PA"));
        assertSame(PUT, identify("PE"));
+       assertSame(PUT, identify("Put"));
     }
 }

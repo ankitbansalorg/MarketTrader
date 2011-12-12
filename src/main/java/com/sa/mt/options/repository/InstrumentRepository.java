@@ -3,6 +3,9 @@ package com.sa.mt.options.repository;
 import java.util.Date;
 import java.util.List;
 
+import com.sa.mt.options.domain.InstrumentType;
+import com.sa.mt.options.domain.OptionType;
+import com.sa.mt.utils.DateRange;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.document.mongodb.MongoTemplate;
 import org.springframework.stereotype.Repository;
@@ -31,5 +34,10 @@ public class InstrumentRepository {
     	DBObject query  = new QueryBuilder().start().put("date").is(date).get();
     	DBObject obj = mongoTemplate.getCollection(INSTRUMENTS).findOne(query);
         return obj != null;
+    }
+
+    public List<Instrument> getDataFor(String symbol, InstrumentType instrumentType,
+                                       OptionType optionType, DateRange dateRange) {
+        return null;
     }
 }

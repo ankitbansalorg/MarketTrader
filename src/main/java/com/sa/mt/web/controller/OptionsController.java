@@ -18,10 +18,11 @@ public class OptionsController {
         this.instrumentRepository = instrumentRepository;
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/options/{symbol}")
-    public ModelAndView displayData(@PathVariable String symbol) {
+    @RequestMapping(method = RequestMethod.GET, value = "/options/{symbol}/type/{type}/report/{reportType}")
+    public ModelAndView displayDataFor(@PathVariable String symbol, @PathVariable String type,
+                                       @PathVariable String reportType) {
         ModelAndView modelAndView = new ModelAndView(OPTION_VIEW);
-        modelAndView.addObject("presenter", new Object());
+        modelAndView.addObject("presenter", instrumentRepository.getAll());
         return modelAndView;
     }
 }
