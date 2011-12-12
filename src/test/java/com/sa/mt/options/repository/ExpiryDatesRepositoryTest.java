@@ -37,11 +37,24 @@ public class ExpiryDatesRepositoryTest {
 
 	@Test
 	public void shouldStoreExpiryDates() {
-		ExpiryDate expiryDate = new ExpiryDate("March", "2008",
+		ExpiryDate expiryDate = new ExpiryDate("mar", "2008",
 				getDate("27-MAR-2008"));
 		repository.save(Arrays.asList(expiryDate));
 		List<ExpiryDate> expiryDates = repository.getAll();
 		assertEquals(1, expiryDates.size());
 		assertEquals(expiryDate, expiryDates.get(0));
+	}
+	
+	@Test
+	public void shouldNotStoreDuplicateExpiryDates() {
+		ExpiryDate expiryDate1 = new ExpiryDate("mar", "2008",
+				getDate("27-MAR-2008"));
+		ExpiryDate expiryDate2 = new ExpiryDate("mar", "2008",
+				getDate("27-MAR-2008"));
+		
+		repository.save(Arrays.asList(expiryDate1,expiryDate2));
+		List<ExpiryDate> expiryDates = repository.getAll();
+		assertEquals(1, expiryDates.size());
+		assertEquals(expiryDate1, expiryDates.get(0));
 	}
 }
