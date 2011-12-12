@@ -5,6 +5,7 @@ import static com.sa.mt.utils.DateUtils.getDate;
 import static junit.framework.Assert.assertEquals;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import org.junit.Before;
@@ -38,7 +39,7 @@ public class ExpiryDatesRepositoryTest {
 	@Test
 	public void shouldStoreExpiryDates() {
 		ExpiryDate expiryDate = new ExpiryDate("mar", "2008",
-				getDate("27-MAR-2008"));
+				getDate("27-mar-2008"));
 		repository.save(Arrays.asList(expiryDate));
 		List<ExpiryDate> expiryDates = repository.getAll();
 		assertEquals(1, expiryDates.size());
@@ -48,13 +49,39 @@ public class ExpiryDatesRepositoryTest {
 	@Test
 	public void shouldNotStoreDuplicateExpiryDates() {
 		ExpiryDate expiryDate1 = new ExpiryDate("mar", "2008",
-				getDate("27-MAR-2008"));
+				getDate("27-mar-2008"));
 		ExpiryDate expiryDate2 = new ExpiryDate("mar", "2008",
-				getDate("27-MAR-2008"));
+				getDate("27-mar-2008"));
 		
 		repository.save(Arrays.asList(expiryDate1,expiryDate2));
 		List<ExpiryDate> expiryDates = repository.getAll();
 		assertEquals(1, expiryDates.size());
 		assertEquals(expiryDate1, expiryDates.get(0));
+	}
+	
+	@Test
+	public void shouldFindExpiryDateForMonth() {
+		ExpiryDate expiryDate = new ExpiryDate(getDate("27-mar-2008"));
+		repository.save(Arrays.asList(expiryDate));
+		ExpiryDate result = repository.findExpiryDateFor(getDate("27-mar-2008"));
+		assertEquals(expiryDate,result);
+	}
+	
+	@Test
+	public void shouldFindNextExpiryDateForAGivenDate() {
+		ExpiryDate expiryDate = new ExpiryDate(getDate("27-mar-2008"));
+		repository.save(Arrays.asList(expiryDate));
+		ExpiryDate result = repository.findNextExpiryDateFor(getDate("26-mar-2008"));
+		assertEquals(expiryDate,result);
+	}
+	
+	@Test
+	public void shouldFindNextExpiryDateWhenDateIsGreaterThanThisMonthExpiryDate() {
+		ExpiryDate expiryDate1 = new ExpiryDate(getDate("27-mar-2008"));
+		ExpiryDate expiryDate2 = new ExpiryDate(getDate("27-apr-2008"));
+	
+		repository.save(Arrays.asList(expiryDate1, expiryDate2));
+		ExpiryDate result = repository.findNextExpiryDateFor(getDate("27-mar-2008"));
+		assertEquals(expiryDate2,result);
 	}
 }

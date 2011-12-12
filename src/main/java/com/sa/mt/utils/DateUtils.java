@@ -9,6 +9,8 @@ import java.util.TimeZone;
 public class DateUtils {
     private static final String DATEFORMAT = "dd-MMM-yyyy";
 
+	private static final SimpleDateFormat monthFormat = new SimpleDateFormat("MMM");
+    
     public static Date getDate(String dateString) {
 
         SimpleDateFormat dateFormat = new SimpleDateFormat(DATEFORMAT);
@@ -24,12 +26,18 @@ public class DateUtils {
     }
     
     public static String getMonth(Date date) {
-    	SimpleDateFormat dateFormat = new SimpleDateFormat("MMM");
-    	return dateFormat.format(date);
+    	return monthFormat.format(date);
 	}
 
 	public static String getYear(Date date) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");
 	    return dateFormat.format(date);
+	}
+
+	public static String getNextMonth(Date date) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		calendar.set(Calendar.MONTH,calendar.get(Calendar.MONTH)+1);
+		return monthFormat.format(calendar.getTime());
 	}
 }
