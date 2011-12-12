@@ -38,7 +38,7 @@ public class ExpiryDatesRepositoryTest {
 
 	@Test
 	public void shouldStoreExpiryDates() {
-		ExpiryDate expiryDate = new ExpiryDate("mar", "2008",
+		ExpiryDate expiryDate = new ExpiryDate("Mar", "2008",
 				getDate("27-mar-2008"));
 		repository.save(Arrays.asList(expiryDate));
 		List<ExpiryDate> expiryDates = repository.getAll();
@@ -48,9 +48,9 @@ public class ExpiryDatesRepositoryTest {
 	
 	@Test
 	public void shouldNotStoreDuplicateExpiryDates() {
-		ExpiryDate expiryDate1 = new ExpiryDate("mar", "2008",
+		ExpiryDate expiryDate1 = new ExpiryDate("Mar", "2008",
 				getDate("27-mar-2008"));
-		ExpiryDate expiryDate2 = new ExpiryDate("mar", "2008",
+		ExpiryDate expiryDate2 = new ExpiryDate("Mar", "2008",
 				getDate("27-mar-2008"));
 		
 		repository.save(Arrays.asList(expiryDate1,expiryDate2));

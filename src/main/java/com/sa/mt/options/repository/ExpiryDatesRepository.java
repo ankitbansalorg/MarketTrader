@@ -1,6 +1,5 @@
 package com.sa.mt.options.repository;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -10,8 +9,6 @@ import org.springframework.data.document.mongodb.query.Criteria;
 import org.springframework.data.document.mongodb.query.Query;
 import org.springframework.stereotype.Repository;
 
-import com.mongodb.DBObject;
-import com.mongodb.QueryBuilder;
 import com.sa.mt.options.domain.ExpiryDate;
 import com.sa.mt.utils.DateUtils;
 
@@ -31,9 +28,7 @@ public class ExpiryDatesRepository {
 	}
 
 	private boolean exists(ExpiryDate expiryDate) {
-		DBObject query = new QueryBuilder().start().put("month").is(expiryDate.getMonth()).put("year").is(expiryDate.getYear()).get();
-		Object obj= mongoTemplate.getCollection(EXPIRYDATES).findOne(query );
-		return obj!=null;
+		return null!=findExpiryDateFor(expiryDate.getExpiryDate());
 	}
 
 	public List<ExpiryDate> getAll() {
