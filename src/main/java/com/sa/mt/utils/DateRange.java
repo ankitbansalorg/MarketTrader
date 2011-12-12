@@ -42,4 +42,12 @@ public class DateRange {
         result = 31 * result + (startDate != null ? startDate.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "DateRange{" +
+                "endDate=" + endDate +
+                ", startDate=" + startDate +
+                '}';
+    }
 }

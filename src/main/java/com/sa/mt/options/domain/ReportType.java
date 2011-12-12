@@ -18,7 +18,10 @@ public enum ReportType {
     }, MONTHLY("Monthly") {
         @Override
         public DateRange dateRangeFor(Date date) {
-            return null;
+            DateTime dateTime = new DateTime(date);
+            Date startDate = dateTime.dayOfMonth().withMinimumValue().toDate();
+            Date endDate = dateTime.dayOfMonth().withMaximumValue().toDate();
+            return new DateRange(startDate, endDate);
         }
     }, YEARLY("Yearly") {
         @Override

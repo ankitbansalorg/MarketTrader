@@ -30,7 +30,6 @@ public class ReportTypeTest {
         assertEquals(new DateRange(startDate, endDate), WEEKLY.dateRangeFor(getDate("15-Nov-2011")));
     }
 
-    @Ignore
     @Test
     public void shouldProvideDateRangeForMonthlyReport() {
         Date startDate = getDate("01-Nov-2011");
