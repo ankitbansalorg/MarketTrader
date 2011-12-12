@@ -5,7 +5,6 @@ import static com.sa.mt.utils.DateUtils.getDate;
 import static junit.framework.Assert.assertEquals;
 
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 import org.junit.Before;
