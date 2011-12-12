@@ -22,4 +22,14 @@ public class DateUtils {
             throw new RuntimeException("Date String"+dateString+" is not in correct format: "+ DATEFORMAT, e);
         }
     }
+    
+    public static String getMonth(Date date) {
+    	SimpleDateFormat dateFormat = new SimpleDateFormat("MMM");
+    	return dateFormat.format(date);
+	}
+
+	public static String getYear(Date date) {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");
+	    return dateFormat.format(date);
+	}
 }

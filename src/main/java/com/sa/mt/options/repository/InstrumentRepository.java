@@ -3,9 +3,6 @@ package com.sa.mt.options.repository;
 import java.util.Date;
 import java.util.List;
 
-import com.sa.mt.options.domain.InstrumentType;
-import com.sa.mt.options.domain.OptionType;
-import com.sa.mt.utils.DateRange;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.document.mongodb.MongoTemplate;
 import org.springframework.stereotype.Repository;
@@ -13,6 +10,9 @@ import org.springframework.stereotype.Repository;
 import com.mongodb.DBObject;
 import com.mongodb.QueryBuilder;
 import com.sa.mt.options.domain.Instrument;
+import com.sa.mt.options.domain.InstrumentType;
+import com.sa.mt.options.domain.OptionType;
+import com.sa.mt.utils.DateRange;
 
 @Repository
 public class InstrumentRepository {

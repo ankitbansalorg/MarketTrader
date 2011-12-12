@@ -16,4 +16,19 @@ public class DateUtilsTest {
        cal.set(Calendar.MILLISECOND, 0);
        assertEquals(cal.getTime(), DateUtils.getDate("3-Nov-2008"));
    }
+   
+   @Test
+   public void shouldGetMonthFromDate(){
+	   Date date = DateUtils.getDate("3-Nov-2008");
+	   String month = DateUtils.getMonth(date);
+	   assertEquals("Nov", month);
+   }
+
+   @Test
+   public void shouldGetYearFromDate(){
+	   Date date = DateUtils.getDate("3-Nov-2008");
+	   String year = DateUtils.getYear(date);
+	   assertEquals("2008", year);
+   }
+
 }
