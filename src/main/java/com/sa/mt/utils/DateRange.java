@@ -1,9 +1,5 @@
 package com.sa.mt.utils;
 
-import com.sa.mt.options.domain.ReportType;
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeConstants;
-
 import java.util.Date;
 
 public class DateRange {
