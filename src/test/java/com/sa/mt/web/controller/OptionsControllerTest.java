@@ -2,13 +2,19 @@ package com.sa.mt.web.controller;
 
 import com.sa.mt.options.domain.InstrumentType;
 import com.sa.mt.options.domain.OptionType;
+import com.sa.mt.options.domain.ReportType;
+import com.sa.mt.options.repository.ExpiryDatesRepository;
 import com.sa.mt.options.repository.InstrumentRepository;
+import com.sa.mt.utils.DateUtils;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.util.Date;
+
+import static org.mockito.Mockito.verify;
 
 public class OptionsControllerTest {
 
@@ -16,21 +22,25 @@ public class OptionsControllerTest {
     private InstrumentRepository instrumentRepository;
 
     private OptionsController optionsController;
+    @Mock
+    private ExpiryDatesRepository expiryDatesRepository;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        optionsController = new OptionsController(instrumentRepository);
+        optionsController = new OptionsController(instrumentRepository, expiryDatesRepository);
     }
 
+    @Ignore
     @Test
     public void shouldDisplayDataForOption() {
         String symbol = "NIFTY";
         String type = "Put";
-        String reportType = "Monthly";
-        Date expiryDate = new Date();
+        ReportType reportType = ReportType.MONTHLY;
 
-        optionsController.displayDataFor(symbol, type, reportType);
-      //  verify(instrumentRepository).getDataFor(symbol, InstrumentType.OPTION, OptionType.CALL, expiryDate);
+        optionsController.displayDataFor(symbol, type, reportType.reportType(), 0);
+        verify(expiryDatesRepository).findExpiryDateFor(DateUtils.currentDate());
+        verify(instrumentRepository).getDataFor(symbol, InstrumentType.OPTION, OptionType.CALL,
+                reportType.dateRangeFor(new Date()), new Date());
     }
 }

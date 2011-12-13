@@ -40,4 +40,14 @@ public class DateUtils {
 		calendar.set(Calendar.MONTH,calendar.get(Calendar.MONTH)+1);
 		return monthFormat.format(calendar.getTime());
 	}
+
+    public static Date currentDate() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(DATEFORMAT);
+        String formattedDate = dateFormat.format(new Date());
+        try {
+            return dateFormat.parse(formattedDate);
+        } catch (ParseException e) {
+            throw new RuntimeException("Date String"+ formattedDate+" is not in correct format: "+ DATEFORMAT, e);
+        }
+    }
 }

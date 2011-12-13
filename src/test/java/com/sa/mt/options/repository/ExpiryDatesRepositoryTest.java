@@ -59,18 +59,10 @@ public class ExpiryDatesRepositoryTest {
 	}
 	
 	@Test
-	public void shouldFindExpiryDateForMonth() {
-		ExpiryDate expiryDate = new ExpiryDate(getDate("27-mar-2008"));
-		repository.save(Arrays.asList(expiryDate));
-		ExpiryDate result = repository.findExpiryDateFor(getDate("27-mar-2008"));
-		assertEquals(expiryDate,result);
-	}
-	
-	@Test
 	public void shouldFindNextExpiryDateForAGivenDate() {
 		ExpiryDate expiryDate = new ExpiryDate(getDate("27-mar-2008"));
 		repository.save(Arrays.asList(expiryDate));
-		ExpiryDate result = repository.findNextExpiryDateFor(getDate("26-mar-2008"));
+		ExpiryDate result = repository.findExpiryDateFor(getDate("26-mar-2008"));
 		assertEquals(expiryDate,result);
 	}
 	
@@ -80,7 +72,7 @@ public class ExpiryDatesRepositoryTest {
 		ExpiryDate expiryDate2 = new ExpiryDate(getDate("27-apr-2008"));
 	
 		repository.save(Arrays.asList(expiryDate1, expiryDate2));
-		ExpiryDate result = repository.findNextExpiryDateFor(getDate("27-mar-2008"));
+		ExpiryDate result = repository.findExpiryDateFor(getDate("27-mar-2008"));
 		assertEquals(expiryDate2,result);
 	}
 }

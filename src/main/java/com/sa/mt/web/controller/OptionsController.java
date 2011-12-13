@@ -1,5 +1,6 @@
 package com.sa.mt.web.controller;
 
+import com.sa.mt.options.repository.ExpiryDatesRepository;
 import com.sa.mt.options.repository.InstrumentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,13 +15,13 @@ public class OptionsController {
     private static final String OPTION_VIEW = "/hello";
 
     @Autowired
-    public OptionsController(InstrumentRepository instrumentRepository) {
+    public OptionsController(InstrumentRepository instrumentRepository, ExpiryDatesRepository expiryDatesRepository) {
         this.instrumentRepository = instrumentRepository;
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/options/{symbol}/type/{type}/report/{reportType}")
     public ModelAndView displayDataFor(@PathVariable String symbol, @PathVariable String type,
-                                       @PathVariable String reportType) {
+                                       @PathVariable String reportType,@PathVariable int expiry) {
         ModelAndView modelAndView = new ModelAndView(OPTION_VIEW);
         modelAndView.addObject("presenter", instrumentRepository.getAll());
         return modelAndView;

@@ -51,4 +51,8 @@ public enum ReportType {
     }
 
     public abstract DateRange dateRangeFor(Date date);
+
+    public String reportType() {
+        return reportType;
+    }
 }

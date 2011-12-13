@@ -12,6 +12,10 @@ import org.springframework.stereotype.Repository;
 import com.sa.mt.options.domain.ExpiryDate;
 import com.sa.mt.utils.DateUtils;
 
+import static com.sa.mt.utils.DateUtils.getMonth;
+import static com.sa.mt.utils.DateUtils.getNextMonth;
+import static com.sa.mt.utils.DateUtils.getYear;
+
 @Repository
 public class ExpiryDatesRepository {
 
@@ -28,7 +32,7 @@ public class ExpiryDatesRepository {
 	}
 
 	private boolean exists(ExpiryDate expiryDate) {
-		return null!=findExpiryDateFor(expiryDate.getExpiryDate());
+		return null!=findExpiryDateFor(expiryDate.getMonth(), expiryDate.getYear());
 	}
 
 	public List<ExpiryDate> getAll() {
@@ -36,21 +40,13 @@ public class ExpiryDatesRepository {
 	}
 
 	public ExpiryDate findExpiryDateFor(Date date) {
-		return findExpiryDateFor(DateUtils.getMonth(date), DateUtils.getYear(date));
-	}
-
-	public ExpiryDate findNextExpiryDateFor(Date date) {
-		ExpiryDate expiryDateForMonth = findExpiryDateFor(date);
+		ExpiryDate expiryDateForMonth = findExpiryDateFor(getMonth(date), getYear(date));
 		if(date.before(expiryDateForMonth.getExpiryDate())) return expiryDateForMonth;
-		else return findExpiryDateForNextMonth(date);
-	}
-
-	private ExpiryDate findExpiryDateForNextMonth(Date date) {
-		return findExpiryDateFor(DateUtils.getNextMonth(date), DateUtils.getYear(date));
+		else return findExpiryDateFor(getNextMonth(date), getYear(date));
 	}
 	
 	private ExpiryDate findExpiryDateFor(String month, String year){
 		Query query = new Query().addCriteria(Criteria.where("month").is(month).and("year").is(year));
-		return mongoTemplate.findOne(EXPIRYDATES, query , ExpiryDate.class);
+		return mongoTemplate.findOne(EXPIRYDATES, query, ExpiryDate.class);
 	}
 }
