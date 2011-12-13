@@ -14,8 +14,10 @@ public class OptionTypeTest {
        assertSame(CALL, identify("CA"));
        assertSame(CALL, identify("CE"));
        assertSame(CALL, identify("Call"));
+       assertSame(CALL, identify("CALL"));
        assertSame(PUT, identify("PA"));
        assertSame(PUT, identify("PE"));
        assertSame(PUT, identify("Put"));
+       assertSame(PUT, identify("PUT"));
     }
 }

@@ -3,7 +3,7 @@ package com.sa.mt.options.domain;
 import org.apache.commons.lang.ArrayUtils;
 
 public enum OptionType {
-    PUT("PA", "PE", "Put"), CALL("CA", "CE", "Call");
+    PUT("PA", "PE", "Put", "PUT"), CALL("CA", "CE", "Call", "CALL");
     private String[] identifiers;
 
     OptionType(String... identifiers) {

@@ -4,8 +4,10 @@ import org.apache.commons.lang.ArrayUtils;
 
 import java.util.Arrays;
 
+import static org.apache.commons.lang.ArrayUtils.contains;
+
 public enum InstrumentType {
-    OPTION("OPTSTK", "OPTIDX"), FUTURE("FUTINT", "FUTSTK", "FUTIDX");
+    OPTION("OPTSTK", "OPTIDX", "OPTION", "Option"), FUTURE("FUTINT", "FUTSTK", "FUTIDX");
     
     private String[] identifiers;
 
@@ -15,7 +17,7 @@ public enum InstrumentType {
 
     public static InstrumentType identify(String identifier) {
         for(InstrumentType instrumentType : InstrumentType.values()) {
-           if(ArrayUtils.contains(instrumentType.identifiers, identifier)) {
+           if(contains(instrumentType.identifiers, identifier)) {
               return instrumentType; 
            }
         }
