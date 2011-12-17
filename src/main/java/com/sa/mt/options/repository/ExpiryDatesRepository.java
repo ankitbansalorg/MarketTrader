@@ -1,33 +1,26 @@
 package com.sa.mt.options.repository;
 
+import com.sa.mt.options.domain.ExpiryDate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.stereotype.Repository;
+
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.document.mongodb.MongoTemplate;
-import org.springframework.data.document.mongodb.query.Criteria;
-import org.springframework.data.document.mongodb.query.Query;
-import org.springframework.stereotype.Repository;
-
-import com.sa.mt.options.domain.ExpiryDate;
-import com.sa.mt.utils.DateUtils;
-
-import static com.sa.mt.utils.DateUtils.getMonth;
-import static com.sa.mt.utils.DateUtils.getNextMonth;
-import static com.sa.mt.utils.DateUtils.getYear;
+import static com.sa.mt.utils.DateUtils.*;
 
 @Repository
 public class ExpiryDatesRepository {
 
     @Autowired
     private MongoTemplate mongoTemplate;
-	
-    public static final String EXPIRYDATES = "expirydates";
-
     
 	public void save(List<ExpiryDate> expiryDates) {
 		for (ExpiryDate expiryDate : expiryDates) {
-			if(!exists(expiryDate)) mongoTemplate.insert(EXPIRYDATES, expiryDate);
+			if(!exists(expiryDate)) mongoTemplate.insert(expiryDate);
 		}
 	}
 
@@ -36,7 +29,7 @@ public class ExpiryDatesRepository {
 	}
 
 	public List<ExpiryDate> getAll() {
-		return mongoTemplate.getCollection(EXPIRYDATES, ExpiryDate.class);
+		return mongoTemplate.findAll(ExpiryDate.class);
 	}
 
 	public ExpiryDate findExpiryDateFor(Date date) {
@@ -47,6 +40,6 @@ public class ExpiryDatesRepository {
 	
 	private ExpiryDate findExpiryDateFor(String month, String year){
 		Query query = new Query().addCriteria(Criteria.where("month").is(month).and("year").is(year));
-		return mongoTemplate.findOne(EXPIRYDATES, query, ExpiryDate.class);
+		return mongoTemplate.findOne(query, ExpiryDate.class);
 	}
 }

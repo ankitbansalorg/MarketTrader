@@ -2,12 +2,11 @@ package com.sa.mt.options.repository;
 
 import com.sa.mt.options.domain.DownloadStatus;
 import com.sa.mt.options.downloader.DownloadType;
-import com.sa.mt.utils.DateUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.document.mongodb.MongoTemplate;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -19,7 +18,6 @@ import java.util.List;
 
 import static com.sa.mt.options.downloader.DownloadType.INSTRUMENT;
 import static com.sa.mt.options.downloader.DownloadType.STOCK;
-import static com.sa.mt.options.repository.InstrumentRepository.INSTRUMENTS;
 import static com.sa.mt.utils.DateUtils.getDate;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -37,7 +35,7 @@ public class DownloadStatusRepositoryTest {
 
     @Before
     public void setUp() {
-        mongoTemplate.dropCollection(DownloadStatusRepository.DOWNLOAD_STATUSES);
+        mongoTemplate.dropCollection(DownloadStatus.class);
     }
 
     @Test
@@ -55,12 +53,12 @@ public class DownloadStatusRepositoryTest {
 
     @Test
     public void shouldUpdateDownloadStatusDate() {
-       DownloadStatus downloadStatus = downloadStatus(INSTRUMENT, getDate("10-May-2011"));
-       downloadStatusRepository.save(Arrays.asList(downloadStatus));
+        DownloadStatus downloadStatus = downloadStatus(INSTRUMENT, getDate("10-May-2011"));
+        downloadStatusRepository.save(Arrays.asList(downloadStatus));
         DownloadStatus newDownloadStatus = new DownloadStatus(INSTRUMENT, getDate("12-May-2011"));
         downloadStatusRepository.updateDownloadedDate(newDownloadStatus);
 
-       assertEquals(newDownloadStatus, downloadStatusRepository.find(INSTRUMENT));
+        assertEquals(newDownloadStatus, downloadStatusRepository.find(INSTRUMENT));
     }
 
     private DownloadStatus downloadStatus(DownloadType instrument, Date lastDownloadedDate) {

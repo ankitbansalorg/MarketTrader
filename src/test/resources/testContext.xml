@@ -13,10 +13,9 @@
 	<import resource="../../main/webapp/WEB-INF/baseContext.xml"/>
 
 	<bean id="mongoTemplate"
-                 class="org.springframework.data.document.mongodb.MongoTemplate">
+                 class="org.springframework.data.mongodb.core.MongoTemplate">
 		<constructor-arg ref="mongo" />
 		<constructor-arg name="databaseName" value="mt_test" />
-		<constructor-arg name="defaultCollectionName" value="mt_test" />
 	</bean>
 
     <bean id="config" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
