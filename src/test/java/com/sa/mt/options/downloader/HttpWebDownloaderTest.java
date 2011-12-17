@@ -1,6 +1,7 @@
 package com.sa.mt.options.downloader;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
@@ -14,6 +15,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.io.InputStream;
+
 public class HttpWebDownloaderTest {
 
     @Mock

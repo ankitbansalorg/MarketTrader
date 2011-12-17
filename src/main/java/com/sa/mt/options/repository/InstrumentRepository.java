@@ -11,8 +11,11 @@ import org.springframework.data.mongodb.core.query.Order;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+
+import static org.springframework.data.mongodb.core.query.Criteria.where;
 
 @Repository
 public class InstrumentRepository {
@@ -29,19 +32,19 @@ public class InstrumentRepository {
     }
 
     public boolean dataExistsForDate(Date date) {
-        Query query = new Query(Criteria.where("date").is(date));
+        Query query = new Query(where("date").is(date));
         return mongoTemplate.findOne(query, Instrument.class) != null;
     }
 
     public List<Instrument> getDataFor(String symbol, InstrumentType instrumentType,
                                        OptionType optionType, DateRange dateRange,
                                        Date expiryDate) {
-        Criteria criteria = Criteria.where("symbol").is(symbol).
-                            and("instrumentType").is(instrumentType).
-                            and("type").is(optionType).
+        Criteria criteria = where("symbol").is(symbol).
+                            and("instrumentType").is(instrumentType.name()).
+                            and("type").is(optionType.name()).
                             and("expiryDate").is(expiryDate).
-                            and("date").gte(dateRange.getStartDate()).
-                            and("date").lte(dateRange.getEndDate());
+                            andOperator(where("date").gte(dateRange.getStartDate()),
+                                    where("date").lte(dateRange.getEndDate()));
         Query query = new Query(criteria);
         query.sort().on("date", Order.ASCENDING).on("strikePrice", Order.ASCENDING);
 
