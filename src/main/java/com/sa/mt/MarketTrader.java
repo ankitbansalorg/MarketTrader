@@ -9,5 +9,6 @@ public class MarketTrader {
         ApplicationContext context = new GenericXmlApplicationContext("src/main/webapp/WEB-INF/applicationContext.xml");
         InstrumentsDownloader instrumentsDownloader = (InstrumentsDownloader) context.getBean("instrumentPipeline");
         instrumentsDownloader.execute();
+        throw new RuntimeException("Testing deployment behavior");
     }
 }
